@@ -7,7 +7,7 @@ sap.ui.define([
     "use strict";
 
     return Controller.extend("com.hcl.btp.governance.cockpit.controller.PlatformDashboard", {
-        onInit: function () {//init
+        onInit: function () {
             var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
             oRouter.getRoute("RoutePlatformDashboard").attachMatched(this._onRouteMatched, this);
 
