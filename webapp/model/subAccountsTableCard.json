@@ -1,0 +1,63 @@
+{
+    "_version": "1.1.0",
+    "sap.app": {
+        "id": "card.explorer.table.card",
+        "type": "card",
+        "applicationVersion": {
+            "version": "1.0.0"
+        },
+        "shortTitle": "A short title for this Card",
+        "info": "Additional information about this Card",
+        "description": "A long description for this Card",
+        "tags": {
+            "keywords": [
+                "Table",
+                "Card"
+            ]
+        }
+    },
+    "sap.card": {
+        "type": "Table",
+        "data": {
+            "json": []
+        },
+        "header": {
+            "title": "List of sub-accounts",
+            "subTitle": "Sub-accounts in use"
+        },
+        "footer": {
+			"paginator": {
+				"pageSize": 7
+			}
+		},
+        "content": {
+            "maxItems": 10,
+            "minItems": 5,
+            "row": {
+                "columns": [
+                    {
+                        "title": "Sub-accounts",
+                        "value": "{displayName}",
+                        "identifier": true,
+                        "width": "45%"
+                    },
+                    {
+                        "title": "Region",
+                        "value": "{region}",
+                        "width": "10%"
+                    },
+                    {
+                        "title": "Created by",
+                        "value": "{createdBy}",
+                        "width": "30%"
+                    },
+                    {
+                        "title": "Created on",
+                        "value": "{createdDate}",
+                        "width": "15%"
+                    }
+                ]
+            }
+        }
+    }
+}

@@ -1,0 +1,34 @@
+<mvc:View controllerName="com.hcl.btp.governance.cockpit.controller.App"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+    xmlns:tnt="sap.tnt"
+    displayBlock="true">
+    <App id="appGovernanceCockpit">
+        <tnt:ToolPage id="_IDGenToolPage1">
+            <tnt:header>
+                <tnt:ToolHeader id="_IDGenToolHeader">
+                    <Button id="_IDGenButton" icon="sap-icon://menu2" press="onToggleNav"></Button>
+                    <Title text="BTP Governance Cockpit" level="H1"/>
+                    <ToolbarSpacer/>
+                </tnt:ToolHeader>
+            </tnt:header>
+            <tnt:sideContent>
+                <tnt:SideNavigation id="sideNavGovernanceCockpit" expanded="false">
+                    <tnt:NavigationList id="navListSideBar" itemSelect="onNavItemSelect" >
+                        <tnt:NavigationListItem id="sideNavListPlatform" icon="sap-icon://cloud" text="Platform" key="PLATFORM"></tnt:NavigationListItem>
+                        <tnt:NavigationListItem id="sideNavListCommercial" icon="sap-icon://loan" text="Commercials" key="COMMERCIALS"></tnt:NavigationListItem>
+                        <tnt:NavigationListItem id="sideNavListIntegration" icon="sap-icon://broken-link" text="Integration" key="INTEGRATION"></tnt:NavigationListItem>
+                        <tnt:NavigationListItem id="sideNavListAutomation" icon="sap-icon://repost" text="Automation" key="AUTOMATION"></tnt:NavigationListItem>
+                        <tnt:NavigationListItem id="sideNavListData" icon="sap-icon://database" text="Data and Analytics" key="DATA"></tnt:NavigationListItem>
+                        <tnt:NavigationListItem id="sideNavListReports" icon="sap-icon://survey" text="Reports" key="REPORTS"></tnt:NavigationListItem>
+                        <tnt:NavigationListItem id="sideNavListUtilities" icon="sap-icon://widgets" text="Utilities" key="UTILITIES"></tnt:NavigationListItem>
+                    </tnt:NavigationList>
+                </tnt:SideNavigation>
+            </tnt:sideContent>
+            <tnt:mainContents>
+                <NavContainer id="navContainerPages"/>
+            </tnt:mainContents>
+        </tnt:ToolPage>
+    </App>
+</mvc:View>

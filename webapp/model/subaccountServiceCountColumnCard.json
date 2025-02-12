@@ -1,0 +1,109 @@
+{
+	"_version": "1.14.0",
+	"sap.app": {
+		"id": "card.explorer.stacked.column.card",
+		"type": "card",
+		"title": "Sample of a Stacked Column Chart",
+		"subTitle": "Sample of a Stacked Column Chart",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"shortTitle": "A short title for this Card",
+		"info": "Additional information about this Card",
+		"description": "A long description for this Card",
+		"tags": {
+			"keywords": [
+				"Analytical",
+				"Card",
+				"Stacked Column",
+				"Sample"
+			]
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"icons": {
+			"icon": "sap-icon://full-stacked-column-chart"
+		}
+	},
+	"sap.card": {
+		"type": "Analytical",
+		"header": {
+			"type": "Numeric",
+			"data": {
+				"json": {}
+			},
+			"title": "SAP BTP Services Counts (Cloud Foundry)",
+			"subTitle": "Number of servcies activated in each sub-accounts",
+			"unitOfMeasurement": "Counts",
+			"mainIndicator": {},
+			"details": "Details, additional information",
+			"sideIndicators": []
+		},
+		"content": {
+			"chartType": "stacked_column",
+			"chartProperties": {
+				"legendGroup": {
+					"position": "bottom",
+					"alignment": "bottomLeft"
+				},
+				"plotArea": {
+					"dataLabel": {
+						"visible": false,
+						"showTotal": true
+					}
+				},
+				"categoryAxis": {
+					"title": {
+						"visible": false
+					}
+				},
+				"valueAxis": {
+					"title": {
+						"visible": false
+					}
+				},
+				"title": {
+					"text": "Services count column chart",
+					"alignment": "left"
+				}
+			},
+			"data": {
+				"json": {},
+				"path": "/d"
+			},
+			"dimensions": [
+				{
+					"name": "Sub-accounts",
+					"value": "{subaccountName}"
+				}
+			],
+			"measures": [
+				{
+					"name": "Services count",
+					"value": "{serviceCount}"
+				},
+				{
+					"name": "Usage",
+					"value": "{usage}"
+				}
+			],
+			"feeds": [
+				{
+					"type": "Dimension",
+					"uid": "categoryAxis",
+					"values": [
+						"Sub-accounts"
+					]
+				},
+				{
+					"type": "Measure",
+					"uid": "valueAxis",
+					"values": [
+						"Services count"
+					]
+				}
+			]
+		}
+	}
+}

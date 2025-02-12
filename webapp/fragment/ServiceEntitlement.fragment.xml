@@ -1,0 +1,91 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Dialog id="dialogSubaccountEntitlements" title="Global and Subaccount Entitlements">
+        <content>
+            <VBox>
+                <Table
+                    id="tabSubaccountEntitlements"
+                    inset="false"
+                    alternateRowColors="true"
+                    class="sapUiSmallMarginBottom"
+                    items="{
+                        path: 'entitledModel>/results'
+                    }"
+                >
+                    <headerToolbar>
+                        <OverflowToolbar>
+                            <Title text="Entitled services to global account" level="H2"/>
+                            <ToolbarSpacer/>
+                        </OverflowToolbar>
+                    </headerToolbar>
+                    <columns>
+                        <Column minScreenWidth="Tablet" width="15%" demandPopin="true">
+                            <Text text="Plan Name"/>
+                        </Column>
+                        <Column minScreenWidth="Tablet" width="75%" demandPopin="true">
+                            <Text text="Description"/>
+                        </Column>
+                        <Column minScreenWidth="Tablet" width="10%" demandPopin="true">
+                            <Text text="Allowed quota"/>
+                        </Column>
+                    </columns>
+
+                    <items>
+                        <ColumnListItem vAlign="Middle" type="Inactive" navigated="false" press="onUsageRowSelect">
+                            <cells>
+                                <Text text="{entitledModel>name}"/>
+                                <Text text="{entitledModel>description}"/>
+                                <Text text="{entitledModel>amount}"/>
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+
+                <Table
+                    id="tabSubaccountAssugnments"
+                    inset="false"
+                    alternateRowColors="true"
+                    class="sapUiSmallMarginTop"
+                    items="{
+                        path: 'assignedModel>/results'
+                    }"
+                >
+                    <headerToolbar>
+                        <OverflowToolbar>
+                            <Title text="Assigned servcies to subaccount" level="H2"/>
+                            <ToolbarSpacer/>
+                        </OverflowToolbar>
+                    </headerToolbar>
+                    <columns>
+                        <Column minScreenWidth="Tablet" width="20%" demandPopin="true">
+                            <Text text="Plan Name"/>
+                        </Column>
+                        <Column minScreenWidth="Tablet" width="20%" demandPopin="true">
+                            <Text text="Assigned quota"/>
+                        </Column>
+                        <Column minScreenWidth="Tablet" width="30%" demandPopin="true">
+                            <Text text="Created on"/>
+                        </Column>
+                        <Column minScreenWidth="Tablet" width="30%" demandPopin="true">
+                            <Text text="Last updated on"/>
+                        </Column>
+                    </columns>
+
+                    <items>
+                        <ColumnListItem vAlign="Middle" type="Inactive" navigated="false" press="onUsageRowSelect">
+                            <cells>
+                                <Text text="{assignedModel>name}"/>
+                                <Text text="{assignedModel>assignmentInfo/0/amount}"/>
+                                <Text text="{path: 'assignedModel>assignmentInfo/0/createdDate', formatter: '.formatter.formatDate'}"/>
+                                <Text text="{path: 'assignedModel>assignmentInfo/0/modifiedDate', formatter: '.formatter.formatDate'}"/>
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </VBox>
+        </content>
+        <beginButton/>
+        <endButton>
+            <Button tooltip="Cancel" icon="sap-icon://cancel" text="Close" type="Default" press="onDialogClose('com.hcl.governancecockpit.fragment.ServiceEntitlement')"/>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

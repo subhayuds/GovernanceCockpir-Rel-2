@@ -1,0 +1,12 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<ViewSettingsDialog
+		confirm="handleBenefitSortDialogConfirm">
+		<sortItems>
+			<ViewSettingsItem text="Service name" key="serviceName" selected="true" />
+			<ViewSettingsItem text="Service category" key="categoryName" />
+			<ViewSettingsItem text="Consuption" key="totalUsage" />
+		</sortItems>
+	</ViewSettingsDialog>
+</core:FragmentDefinition>

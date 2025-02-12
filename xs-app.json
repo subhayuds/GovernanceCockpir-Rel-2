@@ -1,0 +1,54 @@
+{
+  "welcomeFile": "/index.html",
+  "authenticationMethod": "route",
+  "routes": [
+    {
+      "source": "^/accounts/v1/(.*)$",
+      "destination": "BTP_Platform_Account_Services_Dest",
+      "csrfProtection": false,
+      "authenticationType": "none"
+    },
+    {
+      "source": "^/entitlements/v1/(.*)$",
+      "destination": "BTP_Platform_Entitle_Services_Dest",
+      "csrfProtection": false,
+      "authenticationType": "none"
+    },
+    {
+      "source": "^/provisioning/v1/(.*)$",
+      "destination": "BTP_Platform_Provision_Services_Dest",
+      "csrfProtection": false,
+      "authenticationType": "none"
+    },
+    {
+      "source": "^/reports/v1/(.*)$",
+      "destination": "BTP_Platform_Report_Services_Dest",
+      "csrfProtection": false,
+      "authenticationType": "none"
+    },
+    {
+      "source": "^/auditlog/v2/(.*)$",
+      "destination": "BTP_Platform_AuditLog_Services_Dest",
+      "csrfProtection": false,
+      "authenticationType": "none"
+    },
+    {
+      "source": "^/resources/(.*)$",
+      "target": "/resources/$1",
+      "authenticationType": "none",
+      "destination": "ui5"
+    },
+    {
+      "source": "^/test-resources/(.*)$",
+      "target": "/test-resources/$1",
+      "authenticationType": "none",
+      "destination": "ui5"
+    },
+    {
+      "source": "^(.*)$",
+      "target": "$1",
+      "service": "html5-apps-repo-rt",
+      "authenticationType": "xsuaa"
+    }
+  ]
+}

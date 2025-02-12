@@ -1,0 +1,58 @@
+{
+    "_version": "1.1.0",
+    "sap.app": {
+        "id": "card.explorer.table.card",
+        "type": "card",
+        "applicationVersion": {
+            "version": "1.0.0"
+        },
+        "shortTitle": "A short title for this Card",
+        "info": "Additional information about this Card",
+        "description": "A long description for this Card",
+        "tags": {
+            "keywords": [
+                "Table",
+                "Card"
+            ]
+        }
+    },
+    "sap.card": {
+        "type": "Table",
+        "data": {
+            "json": []
+        },
+        "header": {
+            "title": "Entitlements in use",
+            "subTitle": "List of Entitlements"
+        },
+        "footer": {
+			"paginator": {				
+				"pageSize": 7
+			}
+		},
+        "content": {
+            "maxItems": 10,
+            "minItems": 5,
+            "row": {
+                "columns": [
+                    {
+                        "title": "Service",
+                        "value": "{displayName}",
+                        "identifier": true,
+                        "width": "50%"
+                    },
+                    {
+                        "title": "Category",
+                        "value": "{category}",
+                        "width": "30%"
+                    },
+                    {
+                        "title": "Model",
+                        "value": "{plan}",
+                        "width": "20%"
+                    }
+                ]
+            }
+        }
+    }
+}
