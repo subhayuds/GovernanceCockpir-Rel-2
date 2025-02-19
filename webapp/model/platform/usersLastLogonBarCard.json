@@ -1,0 +1,158 @@
+{
+	"_version": "1.1.0",
+	"sap.app": {
+		"id": "card.explorer.analytical.column.card",
+		"type": "card",
+		"title": "Sample of a Column Chart",
+		"subTitle": "Sample of a Column Chart",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"shortTitle": "A short title for this Card",
+		"info": "Additional information about this Card",
+		"description": "A long description for this Card",
+		"tags": {
+			"keywords": [
+				"Analytical",
+				"Card",
+				"Column",
+				"Sample"
+			]
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5"
+	},
+	"sap.card": {
+		"type": "Analytical",
+		"header": {
+			"type": "Numeric",
+			"title": "Active users based on last logon dates"
+		},
+		"content": {
+			"data": {
+				"json": {
+                    "d": []
+                },
+				"path": "/d"
+			},
+			"chartType": "column",
+			"chartProperties": {
+				"legendGroup": {
+					"layout": {
+						"position": "bottom"
+					} 
+				},
+				"title": {
+					"visible": false
+				},
+				"plotArea": {
+					"dataPointStyle": {
+						"rules": [
+							{
+								"dataContext": {
+									"Days": {
+									    "min": 91,
+										"max": 120
+									}
+								},
+								"properties": {
+									"color": "sapUiChartPaletteSemanticBad"
+								},
+								"displayName": "Before three months"
+							},
+							{
+								"dataContext": {
+									"Days": {
+										"min": 61,
+										"max": 90
+									}
+								},
+								"properties": {
+									"color": "sapUiChartPaletteSemanticBadLight1"
+								},
+								"displayName": "Before two months"
+							},
+							{
+								"dataContext": {
+									"Days": {
+										"min": 31,
+										"max": 60
+									}
+								},
+								"properties": {
+									"color": "sapUiChartPaletteSemanticCritical"
+								},
+								"displayName": "Before one month"
+							},
+							{
+								"dataContext": {
+									"Days": {
+										"min": 16,
+										"max": 30
+									}
+								},
+								"properties": {
+									"color": "sapUiChartPaletteSemanticCriticalLight2"
+								},
+								"displayName": "Before 15 days"
+							},
+							{
+								"dataContext": {
+									"Days": {
+										"min": 8,
+										"max": 15
+									}
+								},
+								"properties": {
+									"color": "sapUiChartPaletteSemanticGoodLight2"
+								},
+								"displayName": "Before 7 days"
+							},
+							{
+								"dataContext": {
+									"Days": {
+										"min": 0,
+										"max": 7
+									}
+								},
+								"properties": {
+									"color": "sapUiChartPaletteSemanticGood"
+								},
+								"displayName": "Within a week"
+							}
+						]
+					}
+				}
+			},
+			"dimensions": [
+				{
+					"name": "Days",
+					"value": "{days}"
+				}
+			],
+			"measures": [
+				{
+					"name": "Users",
+					"value": "{users}"
+				}
+			],
+			"feeds": [
+				{
+					"type": "Dimension",
+					"uid": "categoryAxis",
+					"values": [
+						"Days"
+					]
+				},
+				{
+					"type": "Measure",
+					"uid": "valueAxis",
+					"values": [
+						"Users"
+					]
+				}
+			]
+		}
+	}
+}

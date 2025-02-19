@@ -1,7 +1,7 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/ui/model/json/JSONModel",
-    "com/hcl/governancecockpit/util/ajaxCall",
+    "com/hcl/btp/governance/cockpit/util/ajaxCall",
     "sap/m/MessageToast"
 ], (Controller, JSONModel, ajaxCall, MessageToast) => {
     "use strict";
@@ -18,11 +18,7 @@ sap.ui.define([
             this.loadSubAccount();
             this.loadEntitlement();
             this.loadResourceMonthlyUsage();
-            // this.loadAuditLogs();
-            // this.loadProvisioning();
-            // this.loadResourceMonthlyDirectory();
-            // this.loadResourceMonthlySubaccount();-
-            // this.loadResourceSubAccountUsage();
+            this.loadUsers();
         },
 
         /**
@@ -133,15 +129,9 @@ sap.ui.define([
 
             var serviceCountCard = that.getView().byId("resourceMonthlyCount");
             var serviceUsageCard = that.getView().byId("resourceMonthlyUsage");
-            var gbHourUsageCard = that.getView().byId("gbHourMonthlyUsage");
-            var gbHourBackupUsageCard = that.getView().byId("gbHourBackupMonthlyUsage");
-            var apiUsageCard = that.getView().byId("apiCallsMonthlyUsage");
 
             that._serviceCountCardData = JSON.parse(that.getOwnerComponent().getModel("subaccountServiceCountColumnChartAnalyticCardModel").getJSON());
             that._serviceUsageCardData = JSON.parse(that.getOwnerComponent().getModel("subaccountServiceUsageColumnChartAnalyticCardModel").getJSON());
-            that._gbHourCardData = JSON.parse(that.getOwnerComponent().getModel("gbHourUsageBubbleCardDataModel").getJSON());
-            that._gbHourBackupCardData = JSON.parse(that.getOwnerComponent().getModel("gbHourBackupUsageBubbleCardDataModel").getJSON());
-            that._apiCardData = JSON.parse(that.getOwnerComponent().getModel("apiUsageBubbleCardDataModel").getJSON());
             var monthlyUsageData = data.content;
 
             var neoServiceslist = [];
@@ -149,9 +139,6 @@ sap.ui.define([
             var subaccountServiceCountList = [];
             var usageTypes = [];
             var usageList = [];
-            var gbHourList = [];
-            var gbHourBackupList = [];
-            var apiUsageList = [];
 
             for (var i = 0; i < monthlyUsageData.length; i++) {
                 //Capture service counts
@@ -182,30 +169,6 @@ sap.ui.define([
                         "usageAmount": 0
                     });
                 }
-
-                //GB Hour
-                if (monthlyUsageData[i].measureId === 'hc_storage_GiB_hours') {
-                    gbHourList.push({
-                        "subAccount": monthlyUsageData[i].subaccountName,
-                        "service": monthlyUsageData[i].serviceName,
-                        "usage": monthlyUsageData[i].usage
-                    });
-                } else if (monthlyUsageData[i].measureId === 'hc_backup_GiB_hours') {
-                    gbHourBackupList.push({
-                        "subAccount": monthlyUsageData[i].subaccountName,
-                        "service": monthlyUsageData[i].serviceName,
-                        "usage": monthlyUsageData[i].usage
-                    });
-                }
-
-                //API calls
-                if (monthlyUsageData[i].measureId === 'api_calls') {
-                    apiUsageList.push({
-                        "subAccount": monthlyUsageData[i].subaccountName,
-                        "service": monthlyUsageData[i].serviceName,
-                        "usage": monthlyUsageData[i].usage
-                    });
-                }
             }
 
             var servicesCountData = {
@@ -219,24 +182,115 @@ sap.ui.define([
             };
             that._serviceUsageCardData["sap.card"].content.data.json = servicesUsagetData;
             serviceUsageCard.setManifest(that._serviceUsageCardData);
+        },
 
-            // var gbHourData = {
-            //     "d": gbHourList
-            // };
-            // that._gbHourCardData["sap.card"].content.data.json = gbHourData;
-            // gbHourUsageCard.setManifest(that._gbHourCardData);
+        /**
+         * Get Users
+         */
+        loadUsers: function () {
+            var that = this;
+            var prefix = sap.ui.require.toUrl(this.getOwnerComponent().getManifestEntry('/sap.app/id').replaceAll('.', '/')) + "/";
+            var sUrl = prefix + "scim/Users";
 
-            // var gbHourBackupData = {
-            //     "d": gbHourBackupList
-            // };
-            // that._gbHourBackupCardData["sap.card"].content.data.json = gbHourBackupData;
-            // gbHourBackupUsageCard.setManifest(that._gbHourBackupCardData);
+            ajaxCall.makeAjaxReadCall(sUrl, that.getView().getController().getUsersSuccessCallBack,
+                that.getView().getController().errorCallBack, that);
+        },
 
-            // var apiData = {
-            //     "d": apiUsageList
-            // };
-            // that._apiCardData["sap.card"].content.data.json = apiData;
-            // apiUsageCard.setManifest(that._apiCardData);
+        getUsersSuccessCallBack: function (data, that) {
+            var usersModel = new JSONModel(data);
+            that.getOwnerComponent().setModel(usersModel, "usersModel");
+
+            var cardUserLogon = that.getView().byId("userLogon");
+            var userLogonCardModel = that.getOwnerComponent().getModel("userLogonColumnCardDataModel");
+            that._userLogonModel = JSON.parse(userLogonCardModel.getJSON());
+
+            var cardUserStatus = that.getView().byId("userStatus");
+            var userStatusCardModel = that.getOwnerComponent().getModel("userStatusDonutCardDataModel");
+            that._userStatusModel = JSON.parse(userStatusCardModel.getJSON());
+
+            var users = data.Resources;
+            var totalUsers = data.totalResults;
+            var arrData = [];
+            var ninetyDays = 0, sixtyDays = 0, thirtyDays = 0, fifteenDays = 0, sevenDays = 0, recent = 0, activeUsers = 0, inactiveUsers = 0;
+
+            if (totalUsers > 0) {
+                for (let i = 0; i < users.length; i++) {
+                    if (users[i].active) {
+                        activeUsers++;
+                    } else {
+                        inactiveUsers++;
+                    }
+
+                    var userLastLoginTime = ((users[i])["urn:ietf:params:scim:schemas:extension:sap:2.0:User"]).loginTime;
+                    var daysBefore = moment().diff(userLastLoginTime, 'days');
+
+                    if (daysBefore > 90) {
+                        ninetyDays++;
+                    } else if (daysBefore > 60) {
+                        sixtyDays++;
+                    } else if (daysBefore > 30) {
+                        thirtyDays++;
+                    } else if (daysBefore > 15) {
+                        fifteenDays++;
+                    } else if (daysBefore > 7) {
+                        sevenDays++;
+                    } else {
+                        recent++;
+                    }
+                }
+
+                //Users logon statistics
+                var arrData = [
+                    {
+                        "lastLogin": "Within last 7 days",
+                        "days": 7,
+                        "users": recent
+                    },
+                    {
+                        "lastLogin": "Within last 15 days",
+                        "days": 15,
+                        "users": sevenDays
+                    },
+                    {
+                        "lastLogin": "Before 15 days",
+                        "days": 30,
+                        "users": fifteenDays
+                    },
+                    {
+                        "lastLogin": "Before 30 days",
+                        "days": 60,
+                        "users": thirtyDays
+                    },
+                    {
+                        "lastLogin": "Before 60 days",
+                        "days": 90,
+                        "users": sixtyDays
+                    },
+                    {
+                        "lastLogin": "Before 90 days",
+                        "days": 95,
+                        "users": ninetyDays
+                    }
+                ];
+
+                that._userLogonModel["sap.card"].content.data.json.d = arrData;
+
+                //Active users data
+                var arrUserStatus = [
+                    {
+                        "status": "Active",
+                        "users": activeUsers
+                    },
+                    {
+                        "status": "Inactive",
+                        "users": inactiveUsers
+                    }
+                ];
+
+                that._userStatusModel["sap.card"].content.data.json.userStatus = arrUserStatus;
+            }
+            cardUserLogon.setManifest(that._userLogonModel);
+            cardUserStatus.setManifest(that._userStatusModel);
         }
     });
 });

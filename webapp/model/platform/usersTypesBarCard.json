@@ -27,45 +27,14 @@
 		"type": "Analytical",
 		"header": {
 			"type": "Numeric",
-			"title": "Active users based on last logon dates"
+			"title": "User's types"
 		},
 		"content": {
 			"data": {
 				"json": {
-                    "d": [
-                        {
-                            "lastLogin": "Within last 7 days",
-                            "days": 7,
-                            "users": 79
-                        },
-                        {
-                            "lastLogin": "Within last 15 days",
-                            "days": 15,
-                            "users": 108
-                        },
-                        {
-                            "lastLogin": "Before 15 days",
-                            "days": 30,
-                            "users": 63
-                        },
-                        {
-                            "lastLogin": "Before 30 days",
-                            "days": 60,
-                            "users": 73
-                        },
-                        {
-                            "lastLogin": "Before 60 days",
-                            "days": 90,
-                            "users": 17
-                        },
-                        {
-                            "lastLogin": "Before 90 days",
-                            "days": 95,
-                            "users": 27
-                        }
-                    ]
+                    "types": []
                 },
-				"path": "/d"
+				"path": "/types"
 			},
 			"chartType": "column",
 			"chartProperties": {
@@ -75,7 +44,7 @@
 					} 
 				},
 				"title": {
-					"visible": false
+					"visible": true
 				},
 				"plotArea": {
 					"dataPointStyle": {
@@ -152,13 +121,7 @@
 								},
 								"displayName": "Within a week"
 							}
-						],
-						"others": {
-							"properties": {
-								"color": "sapUiChartPaletteSemanticNeutral"
-							},
-							"displayName": "Never logged in"
-						}
+						]
 					}
 				}
 			},

@@ -1,0 +1,84 @@
+{
+	"_version": "1.14.0",
+	"sap.app": {
+		"id": "card.explorer.donut.card",
+		"type": "card",
+		"title": "Sample of a Donut Chart",
+		"subTitle": "Sample of a Donut Chart",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"shortTitle": "BTP Users Statuses",
+		"info": "Platform users status card",
+		"description": "BTP platform users status card",
+		"tags": {
+			"keywords": [
+				"Analytical",
+				"User status"
+			]
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"icons": {
+			"icon": "sap-icon://donut-chart"
+		}
+	},
+	"sap.card": {
+		"type": "Analytical",
+		"header": {
+			"title": "BTP User's status"
+		},
+		"content": {
+			"chartType": "Donut",
+			"chartProperties": {
+				"legend": {
+					"visible": true
+				},
+				"plotArea": {
+					"dataLabel": {
+						"visible": true,
+						"showTotal": true
+					}
+				},
+				"title": {
+					"visible": true
+				}
+			},
+			"data": {
+				"json": {
+					"userStatus": []
+				},
+				"path": "/userStatus"
+			},
+			"dimensions": [
+				{
+					"name": "status",
+					"value": "{status}"
+				}
+			],
+			"measures": [
+				{
+					"name": "users",
+					"value": "{users}"
+				}
+			],
+			"feeds": [
+				{
+					"type": "Dimension",
+					"uid": "color",
+					"values": [
+						"status"
+					]
+				},
+				{
+					"type": "Measure",
+					"uid": "size",
+					"values": [
+						"users"
+					]
+				}
+			]
+		}
+	}
+}

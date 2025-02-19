@@ -37,7 +37,7 @@
 			"subTitle": "Number of servcies activated in each sub-accounts",
 			"unitOfMeasurement": "Counts",
 			"mainIndicator": {},
-			"details": "Details, additional information",
+			"details": "Total numbers of services counts in the individual subaccounts",
 			"sideIndicators": []
 		},
 		"content": {
@@ -45,7 +45,7 @@
 			"chartProperties": {
 				"legendGroup": {
 					"position": "bottom",
-					"alignment": "bottomLeft"
+					"alignment": "topLeft"
 				},
 				"plotArea": {
 					"dataLabel": {

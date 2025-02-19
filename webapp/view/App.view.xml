@@ -28,6 +28,7 @@
             </tnt:sideContent>
             <tnt:mainContents>
                 <NavContainer id="navContainerPages"/>
+                <!-- <App id="mainContentApp"/> -->
             </tnt:mainContents>
         </tnt:ToolPage>
     </App>

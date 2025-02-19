@@ -28,6 +28,48 @@
           }
         }
       }
+    },
+    "dataSources": {
+      "subAccountsTableCardData": {
+        "uri": "model/platform/subAccountsTableCard.json",
+        "type": "JSON"
+      },
+      "entitlementTableCardData": {
+        "uri": "model/platform/entitlementTableCardData.json",
+        "type": "JSON"
+      },
+      "subaccountServiceCountColumnChartCardData": {
+        "uri": "model/platform/subaccountServiceCountColumnCard.json",
+        "type": "JSON"
+      },
+      "subaccountServiceUsageColumnChartCardData": {
+        "uri": "model/platform/totalMonthlyServiceUsageColumnCard.json",
+        "type": "JSON"
+      },
+      "gbHourUsageBubbleCardData": {
+        "uri": "model/data/gbHourUsageBubbleCard.json",
+        "type": "JSON"
+      },
+      "gbHourBackupUsageBubbleCardData": {
+        "uri": "model/data/gbHourBackupUsageBubbleCard.json",
+        "type": "JSON"
+      },
+      "apiUsageBubbleCardData": {
+        "uri": "model/integration/apiCallsBubbleCard.json",
+        "type": "JSON"
+      },
+      "userLogonColumnCardData": {
+        "uri": "model/platform/usersLastLogonBarCard.json",
+        "type": "JSON"
+      },
+      "userStatusDonutCardData": {
+        "uri": "model/platform/activeUsersDonutCard.json",
+        "type": "JSON"
+      },
+      "subAccountUsageCardData": {
+        "uri": "model/platform/subAccountUsageModel.json",
+        "type": "JSON"
+      }
     }
   },
   "sap.ui": {
@@ -65,12 +107,77 @@
         "settings": {
           "bundleName": "com.hcl.btp.governance.cockpit.i18n.i18n"
         }
+      },
+      "subAccountsTableCardModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "subAccountsTableCardData",
+        "preload": true,
+        "settings": {}
+      },
+      "entitlementTableCardModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "entitlementTableCardData",
+        "preload": true,
+        "settings": {}
+      },
+      "subaccountServiceCountColumnChartAnalyticCardModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "subaccountServiceCountColumnChartCardData",
+        "preload": true,
+        "settings": {}
+      },
+      "subaccountServiceUsageColumnChartAnalyticCardModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "subaccountServiceUsageColumnChartCardData",
+        "preload": true,
+        "settings": {}
+      },
+      "gbHourUsageBubbleCardDataModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "gbHourUsageBubbleCardData",
+        "preload": true,
+        "settings": {}
+      },
+      "gbHourBackupUsageBubbleCardDataModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "gbHourBackupUsageBubbleCardData",
+        "preload": true,
+        "settings": {}
+      },
+      "apiUsageBubbleCardDataModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "apiUsageBubbleCardData",
+        "preload": true,
+        "settings": {}
+      },
+      "userLogonColumnCardDataModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "userLogonColumnCardData",
+        "preload": true,
+        "settings": {}
+      },
+      "userStatusDonutCardDataModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "userStatusDonutCardData",
+        "preload": true,
+        "settings": {}
+      },
+      "subAccountUsageCardDataModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "subAccountUsageCardData",
+        "preload": true,
+        "settings": {}
       }
     },
     "resources": {
       "css": [
         {
           "uri": "css/style.css"
+        }
+      ],
+      "js": [
+        {
+          "uri": "util/moment.min.js"
         }
       ]
     },
@@ -88,18 +195,47 @@
       },
       "routes": [
         {
-          "name": "RoutePlatformDashboard",
-          "pattern": ":?query:",
+          "name": "RouteDefault",
+          "pattern": "",
           "target": [
             "TargetPlatformDashboard"
+          ]
+        },
+        {
+          "name": "RoutePlatformDashboard",
+          "pattern": "Platform",
+          "target": [
+            "TargetPlatformDashboard"
+          ]
+        },
+        {
+          "name": "RouteDataAnalyticsDashboard",
+          "pattern": "dataAnalytics",
+          "target": [
+            "TargetDataAnalyticsDashboard"
+          ]
+        },
+        {
+          "name": "RouteIntegrationDashboard",
+          "pattern": "Integration",
+          "target": [
+            "TargetIntegrationDashboard"
           ]
         }
       ],
       "targets": {
-        "TargetPlatformDashboard": {
-          "id": "PlatformDashboard",
-          "name": "PlatformDashboard"
-        }
+          "TargetPlatformDashboard": {
+            "id": "PlatformDashboard",
+            "name": "PlatformDashboard"
+          },
+          "TargetDataAnalyticsDashboard": {
+            "id": "DataAnalyticsDashboard",
+            "name": "DataAnalyticsDashboard"
+          },
+          "TargetIntegrationDashboard": {
+            "id": "IntegrationDashboard",
+            "name": "IntegrationDashboard"
+          }
       }
     },
     "rootView": {
