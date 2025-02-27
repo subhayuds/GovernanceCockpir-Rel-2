@@ -1,0 +1,89 @@
+{
+	"_version": "1.33.0",
+	"sap.app": {
+		"id": "card.explorer.actions.popoverExtensionActions",
+		"type": "card",
+		"title": "Sample of Chart Actions",
+		"subTitle": "Sample of Chart Actions",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"shortTitle": "A short title for this Card",
+		"info": "Additional information about this Card",
+		"description": "A long description for this Card",
+		"tags": {
+			"keywords": [
+				"Analytical",
+				"Card",
+				"Line",
+				"Sample"
+			]
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"icons": {
+			"icon": "sap-icon://line-chart"
+		}
+	},
+	"sap.card": {
+		"type": "Analytical",
+		"header": {
+			"title": "Integration Runtime Artifacts Status"
+		},
+		"content": {
+			"chartType": "Donut",
+			"chartProperties": {
+				"legendGroup": {
+					"layout": {
+						"position": "top",
+						"alignment": "center"
+					}
+				},
+				"plotArea": {
+					"dataLabel": {
+						"visible": true
+					}
+				},
+				"title": {
+					"visible": false
+				}
+			},
+			"data": {
+				"json": {
+					"list": []
+				},
+				"path": "/list"
+			},
+			"dimensions": [
+				{
+					"name": "Status",
+					"value": "{Status}"
+				}
+			],
+			"measures": [
+				{
+					"name": "Count",
+					"value": "{Count}"
+				}
+			],
+			"feeds": [
+				{
+					"type": "Dimension",
+					"uid": "color",
+					"values": [
+						"Status"
+					]
+				},
+				{
+					"type": "Measure",
+					"uid": "size",
+					"values": [
+						"Count"
+					]
+				}
+			]
+			
+		}
+	}
+}

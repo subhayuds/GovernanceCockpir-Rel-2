@@ -5,7 +5,7 @@
     "type": "application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
-      "version": "2.0.1"
+      "version": "2.0.3"
     },
     "title": "{{appTitle}}",
     "description": "{{appDescription}}",
@@ -38,24 +38,12 @@
         "uri": "model/platform/entitlementTableCardData.json",
         "type": "JSON"
       },
-      "subaccountServiceCountColumnChartCardData": {
-        "uri": "model/platform/subaccountServiceCountColumnCard.json",
+      "subAccountUsageCardData": {
+        "uri": "model/platform/servicesUsageBarCard.json",
         "type": "JSON"
       },
-      "subaccountServiceUsageColumnChartCardData": {
-        "uri": "model/platform/totalMonthlyServiceUsageColumnCard.json",
-        "type": "JSON"
-      },
-      "gbHourUsageBubbleCardData": {
-        "uri": "model/data/gbHourUsageBubbleCard.json",
-        "type": "JSON"
-      },
-      "gbHourBackupUsageBubbleCardData": {
-        "uri": "model/data/gbHourBackupUsageBubbleCard.json",
-        "type": "JSON"
-      },
-      "apiUsageBubbleCardData": {
-        "uri": "model/integration/apiCallsBubbleCard.json",
+      "subaccountServicesCountCardData": {
+        "uri": "model/platform/subaccountservicesCountBarCard.json",
         "type": "JSON"
       },
       "userLogonColumnCardData": {
@@ -66,8 +54,34 @@
         "uri": "model/platform/activeUsersDonutCard.json",
         "type": "JSON"
       },
-      "subAccountUsageCardData": {
-        "uri": "model/platform/subAccountUsageModel.json",
+      "userTypeColumnCardData": {
+        "uri": "model/platform/usersTypesColumnCard.json",
+        "type": "JSON"
+      },
+      "destinationBarCardData": {
+        "uri": "model/platform/destinationsAuthProxyBarCard.json",
+        "type": "JSON"
+      },
+
+      "gbHourUsageBubbleCardData": {
+        "uri": "model/data/gbHourUsageBubbleCard.json",
+        "type": "JSON"
+      },
+      "gbHourBackupUsageBubbleCardData": {
+        "uri": "model/data/gbHourBackupUsageBubbleCard.json",
+        "type": "JSON"
+      },
+
+      "apiUsageBubbleCardData": {
+        "uri": "model/integration/apiCallsBubbleCard.json",
+        "type": "JSON"
+      },
+      "integrationContentTypeBarCardData": {
+        "uri": "model/integration/ContentTypes.json",
+        "type": "JSON"
+      },
+      "integrationContentStatusDonutCardData": {
+        "uri": "model/integration/ContentStatus.json",
         "type": "JSON"
       }
     }
@@ -120,33 +134,15 @@
         "preload": true,
         "settings": {}
       },
-      "subaccountServiceCountColumnChartAnalyticCardModel": {
+      "subAccountUsageCardDataModel": {
         "type": "sap.ui.model.json.JSONModel",
-        "dataSource": "subaccountServiceCountColumnChartCardData",
+        "dataSource": "subAccountUsageCardData",
         "preload": true,
         "settings": {}
       },
-      "subaccountServiceUsageColumnChartAnalyticCardModel": {
+      "subaccountServicesCountCardDataModel": {
         "type": "sap.ui.model.json.JSONModel",
-        "dataSource": "subaccountServiceUsageColumnChartCardData",
-        "preload": true,
-        "settings": {}
-      },
-      "gbHourUsageBubbleCardDataModel": {
-        "type": "sap.ui.model.json.JSONModel",
-        "dataSource": "gbHourUsageBubbleCardData",
-        "preload": true,
-        "settings": {}
-      },
-      "gbHourBackupUsageBubbleCardDataModel": {
-        "type": "sap.ui.model.json.JSONModel",
-        "dataSource": "gbHourBackupUsageBubbleCardData",
-        "preload": true,
-        "settings": {}
-      },
-      "apiUsageBubbleCardDataModel": {
-        "type": "sap.ui.model.json.JSONModel",
-        "dataSource": "apiUsageBubbleCardData",
+        "dataSource": "subaccountServicesCountCardData",
         "preload": true,
         "settings": {}
       },
@@ -162,9 +158,47 @@
         "preload": true,
         "settings": {}
       },
-      "subAccountUsageCardDataModel": {
+      "userTypeColumnCardDataModel": {
         "type": "sap.ui.model.json.JSONModel",
-        "dataSource": "subAccountUsageCardData",
+        "dataSource": "userTypeColumnCardData",
+        "preload": true,
+        "settings": {}
+      },
+      "destinationBarCardDataModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "destinationBarCardData",
+        "preload": true,
+        "settings": {}
+      },
+
+      "gbHourUsageBubbleCardDataModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "gbHourUsageBubbleCardData",
+        "preload": true,
+        "settings": {}
+      },
+      "gbHourBackupUsageBubbleCardDataModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "gbHourBackupUsageBubbleCardData",
+        "preload": true,
+        "settings": {}
+      },
+
+      "apiUsageBubbleCardDataModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "apiUsageBubbleCardData",
+        "preload": true,
+        "settings": {}
+      },
+      "integrationContentTypeBarCardDataModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "integrationContentTypeBarCardData",
+        "preload": true,
+        "settings": {}
+      },
+      "integrationContentStatusDonutCardDataModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "integrationContentStatusDonutCardData",
         "preload": true,
         "settings": {}
       }
@@ -221,6 +255,13 @@
           "target": [
             "TargetIntegrationDashboard"
           ]
+        },
+        {
+          "name": "RouteUtilityApps",
+          "pattern": "Utility",
+          "target": [
+            "TargetUtilityApps"
+          ]
         }
       ],
       "targets": {
@@ -235,6 +276,10 @@
           "TargetIntegrationDashboard": {
             "id": "IntegrationDashboard",
             "name": "IntegrationDashboard"
+          },
+          "TargetUtilityApps": {
+            "id": "UtilityApps",
+            "name": "UtilityApps"
           }
       }
     },

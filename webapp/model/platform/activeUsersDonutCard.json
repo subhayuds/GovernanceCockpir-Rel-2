@@ -27,7 +27,12 @@
 	"sap.card": {
 		"type": "Analytical",
 		"header": {
-			"title": "BTP User's status"
+			"title": "Platform User's status",
+			"subTitle": "The distribution of Active and Inactive users on the platform.",
+			"unitOfMeasurement": "Percent of usrs.",
+			"mainIndicator": {},
+			"details": "Users, Counts, Amounts",
+			"sideIndicators": []
 		},
 		"content": {
 			"chartType": "Donut",
@@ -42,7 +47,7 @@
 					}
 				},
 				"title": {
-					"visible": true
+					"visible": false
 				}
 			},
 			"data": {

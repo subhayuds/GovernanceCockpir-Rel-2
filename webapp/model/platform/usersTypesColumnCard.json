@@ -1,0 +1,106 @@
+{
+	"_version": "1.14.0",
+	"sap.app": {
+		"id": "card.explorer.stacked.column.card",
+		"type": "card",
+		"title": "Sample of a Stacked Column Chart",
+		"subTitle": "Sample of a Stacked Column Chart",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"shortTitle": "A short title for this Card",
+		"info": "Additional information about this Card",
+		"description": "A long description for this Card",
+		"tags": {
+			"keywords": [
+				"Analytical",
+				"Card",
+				"Stacked Column",
+				"Sample"
+			]
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"icons": {
+			"icon": "sap-icon://full-stacked-column-chart"
+		}
+	},
+	"sap.card": {
+		"type": "Analytical",
+		"header": {
+			"type": "Numeric",
+			"data": {
+				"json": {}
+			},
+			"title": "User types",
+			"subTitle": "Number of users of different types.",
+			"unitOfMeasurement": "User counts",
+			"mainIndicator": {},
+			"details": "Total numbers of users of different types.",
+			"sideIndicators": []
+		},
+		"content": {
+			"chartType": "stacked_column",
+			"chartProperties": {
+				"legendGroup": {
+					"position": "bottom",
+					"alignment": "topLeft"
+				},
+				"plotArea": {
+					"dataLabel": {
+						"visible": true,
+						"showTotal": true
+					}
+				},
+				"categoryAxis": {
+					"title": {
+						"visible": true
+					}
+				},
+				"valueAxis": {
+					"title": {
+						"visible": false
+					}
+				},
+				"title": {
+					"text": "Organization user types chart",
+					"alignment": "center",
+					"visible": true
+				}
+			},
+			"data": {
+				"json": {},
+				"path": "/"
+			},
+			"dimensions": [
+				{
+					"name": "User types",
+					"value": "{userType}"
+				}
+			],
+			"measures": [
+				{
+					"name": "Users count",
+					"value": "{userCount}"
+				}
+			],
+			"feeds": [
+				{
+					"type": "Dimension",
+					"uid": "categoryAxis",
+					"values": [
+						"User types"
+					]
+				},
+				{
+					"type": "Measure",
+					"uid": "valueAxis",
+					"values": [
+						"Users count"
+					]
+				}
+			]
+		}
+	}
+}

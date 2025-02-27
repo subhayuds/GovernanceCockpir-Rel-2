@@ -16,13 +16,19 @@
             ]
         }
     },
+    "sap.ui": {
+		"technology": "UI5",
+		"icons": {
+			"icon": "sap-icon://table-view"
+		}
+	},
     "sap.card": {
         "type": "Table",
         "data": {
             "json": []
         },
         "header": {
-            "title": "List of sub-accounts",
+            "title": "List of Sub-accounts configured",
             "subTitle": "Sub-accounts in use"
         },
         "footer": {
@@ -31,29 +37,28 @@
 			}
 		},
         "content": {
-            "maxItems": 10,
-            "minItems": 5,
+            "maxItems": 7,
+            "minItems": 3,
             "row": {
                 "columns": [
                     {
                         "title": "Sub-accounts",
                         "value": "{displayName}",
+                        "additionalText": "{region}",
                         "identifier": true,
+                        "visible": true,
                         "width": "45%"
-                    },
-                    {
-                        "title": "Region",
-                        "value": "{region}",
-                        "width": "10%"
                     },
                     {
                         "title": "Created by",
                         "value": "{createdBy}",
+                        "visible": false,
                         "width": "30%"
                     },
                     {
                         "title": "Created on",
                         "value": "{createdDate}",
+                        "visible": true,
                         "width": "15%"
                     }
                 ]

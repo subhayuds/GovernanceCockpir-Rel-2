@@ -41,9 +41,9 @@ sap.ui.define([
         // case "REPORTS":
         //   this._oRouter.navTo("Reports");
         //   break;
-        // case "UTILITIES":
-        //   this._oRouter.navTo("Utilities");
-        //   break;
+        case "UTILITIES":
+          this._oRouter.navTo("RouteUtilityApps");
+          break;
         default:
           break;
       }

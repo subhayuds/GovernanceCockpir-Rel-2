@@ -22,6 +22,7 @@ sap.ui.define([
          */
         _onRouteMatched: function (oEvent) {
             this.loadMonthlyAPIUsageDashboard();
+            this.loadIntegrationDetails();
         },
 
         loadMonthlyAPIUsageDashboard: function () {
@@ -46,11 +47,75 @@ sap.ui.define([
                 }
             }
 
-            var apiData = {
-                "d": apiUsageList
-            };
-            this._apiCardData["sap.card"].content.data.json = apiData;
+            apiUsageList.sort((a, b) => (a.usage > b.usage ? 1 : -1));
+            apiUsageList.reverse();
+            apiUsageList.splice(5);
+
+            this._apiCardData["sap.card"].content.data.json = apiUsageList;
             apiUsageCard.setManifest(this._apiCardData);
-        }
+        },
+
+        loadIntegrationDetails: function() {
+            var that = this;
+            var prefix = sap.ui.require.toUrl(this.getOwnerComponent().getManifestEntry('/sap.app/id').replaceAll('.', '/')) + "/";
+            var sUrl = prefix + "api/v1/IntegrationRuntimeArtifacts?$format=json";
+
+            ajaxCall.makeAjaxReadCall(sUrl, that.getIntegrationDetailsSuccessCallBack, that.errorCallBack, that);
+        },
+
+        getIntegrationDetailsSuccessCallBack: function(data, that) {
+            var typeCounts = {};
+            var statusCounts = {};  // To count statuses
+            var integrTypeCard = that.getView().byId("cardContentTypes");
+            var integrTypeModel = that.getOwnerComponent().getModel("integrationContentTypeBarCardDataModel");
+            that._integrTypeModel = JSON.parse(integrTypeModel.getJSON());
+
+            var integrStatusCard = that.getView().byId("cardContentStatus");
+            var integrStatusModel = that.getOwnerComponent().getModel("integrationContentStatusDonutCardDataModel");
+            that._integrStatusModel = JSON.parse(integrStatusModel.getJSON());
+
+            data.d.results.forEach(function (item) {
+                var type = item.Type;
+                var status = item.Status;
+
+                // Type count logic
+                if (type) {
+                    typeCounts[type] = (typeCounts[type] || 0) + 1;
+                }
+
+                // Status count logic
+                if (status) {
+                    statusCounts[status] = (statusCounts[status] || 0) + 1;
+                }
+            });
+
+            // Create chart data for the stacked column chart
+            var chartData = [];
+            for (var type in typeCounts) {
+                chartData.push({
+                    Type: type,
+                    Count: typeCounts[type]
+                });
+            }
+
+            // Create data for donut chart (status count)
+            var donutData = [];
+            for (var status in statusCounts) {
+                donutData.push({
+                    Status: status,
+                    Count: statusCounts[status]  // Status count
+                });
+            }
+
+            that._integrTypeModel["sap.card"].content.data.json.list = chartData;
+            integrTypeCard.setManifest(that._integrTypeModel);
+
+            that._integrStatusModel["sap.card"].content.data.json.list = donutData;
+            integrStatusCard.setManifest(that._integrStatusModel);
+        },
+
+        errorCallBack: function (errMsg, viewObj) {
+            MessageToast.show(errMsg);
+        },
     });
 });

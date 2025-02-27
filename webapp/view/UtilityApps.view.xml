@@ -1,0 +1,45 @@
+<mvc:View controllerName="com.hcl.btp.governance.cockpit.controller.UtilityApps"
+    xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:w="sap.ui.integration.widgets"
+	xmlns:f="sap.f"
+    xmlns:layout="sap.ui.layout"
+	displayBlock="true">
+    <Page id="pgUtilityApps">
+        <headerContent>
+            <ToolbarSpacer/>
+            <Title text="Platform management applications" level="H1"/>
+            <ToolbarSpacer/>
+        </headerContent>
+        <content>
+            <layout:Grid containerQuery="true" defaultSpan="XL12 L12 M12 S12" width="100%">
+                <layout:VerticalLayout width="100%" class="gridWrapper">
+                    <FlexBox alignItems="Center" alignContent="Center" direction="Row" renderType="Bare" wrap="Wrap" width="100%" displayInline="true" fitContainer="true">
+                        <items>
+                            <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Subaccouts" subheader="Adjust &amp; Monitor" press="onPressAccounts">
+                                <TileContent unit="Accouts" footer="Usages">
+                                    <NumericContent value="43" icon="sap-icon://line-charts" withMargin="false" />
+                                </TileContent>
+                            </GenericTile>
+                            <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Boosters" subheader="One click setup" press="onPressAccounts">
+                                <TileContent footer="Accouns setup">
+                                    <ImageContent src="sap-icon://trend-up" />
+                                </TileContent>
+                            </GenericTile>
+                            <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Access &amp; Auth" subheader="Request &amp; Monotor" press="press">
+                                <TileContent unit="Request" footer="BTP access">
+                                    <ImageContent src="sap-icon://key-user-settings" />
+                                </TileContent>
+                            </GenericTile>
+                            <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Audit logs" subheader="Analyse errors" press="onPressAudit">
+                                <TileContent unit="Items" footer="Log records">
+                                    <ImageContent src="sap-icon://notes" />
+                                </TileContent>
+                            </GenericTile>
+                        </items>
+                    </FlexBox>
+                </layout:VerticalLayout>
+            </layout:Grid>
+        </content>
+    </Page>
+</mvc:View>

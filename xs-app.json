@@ -33,8 +33,20 @@
       "authenticationType": "none"
     },
     {
+      "source": "^/destination-configuration/v1/(.*)$",
+      "destination": "BTP_Destination_Services_Dest",
+      "csrfProtection": false,
+      "authenticationType": "none"
+    },
+    {
       "source": "^/scim/(.*)$",
       "destination": "BTP_IAS_Dest",
+      "csrfProtection": false,
+      "authenticationType": "none"
+    },
+    {
+      "source": "^/api/v1/(.*)$",
+      "destination": "BTP_CPI_Dest",
       "csrfProtection": false,
       "authenticationType": "none"
     },

@@ -1,0 +1,93 @@
+{
+	"_version": "1.14.0",
+	"sap.app": {
+		"id": "card.explorer.analytical.barWithReferenceLines.card",
+		"type": "card",
+		"title": "Sample of Bar Chart with Reference Lines",
+		"subTitle": "Sample of Bar Chart with Reference Lines",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"shortTitle": "A short title for this Card",
+		"info": "Additional information about this Card",
+		"description": "A long description for this Card",
+		"tags": {
+			"keywords": [
+				"Analytical",
+				"Card",
+				"Bar",
+				"Sample"
+			]
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5"
+	},
+	"sap.card": {
+		"type": "Analytical",
+		"header": {
+			"title": "Sub-account services",
+			"subTitle": "The Top Sub-accounts with the highest number of services enabled.",
+			"unitOfMeasurement": "Counts",
+			"mainIndicator": {},
+			"details": "Servcies, Counts, Amounts",
+			"sideIndicators": []
+		},
+		"content": {
+			"data": {
+				"json": {},
+				"path": "/"
+			},
+			"chartType": "bar",
+			"chartProperties": {
+				"legendGroup": {
+					"position": "bottom",
+					"alignment": "topLeft"
+				},
+				"title": {
+					"text": "Top accounts with maximum number of services",
+					"alignment": "center",
+					"visible": false
+				},
+				"legend": {
+					"visible": true
+				},
+				"plotArea": {
+					"dataLabel": {
+						"visible": true,
+						"showTotal": true
+					}
+				}
+			},
+			"minHeight": "20rem",
+			"dimensions": [
+				{
+					"name": "Sub-accounts",
+					"value": "{subaccountName}"
+				}
+			],
+			"measures": [
+				{
+					"name": "Services count",
+					"value": "{serviceCount}"
+				}
+			],
+			"feeds": [
+				{
+					"type": "Dimension",
+					"uid": "categoryAxis",
+					"values": [
+						"Sub-accounts"
+					]
+				},
+				{
+					"type": "Measure",
+					"uid": "valueAxis",
+					"values": [
+						"Services count"
+					]
+				}
+			]
+		}
+	}
+}

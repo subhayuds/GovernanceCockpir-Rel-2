@@ -1,10 +1,10 @@
 {
 	"_version": "1.14.0",
 	"sap.app": {
-		"id": "card.explorer.analytical.bubble.card",
+		"id": "card.explorer.analytical.barWithReferenceLines.card",
 		"type": "card",
-		"title": "Sample of a Bubble Chart",
-		"subTitle": "Sample of a Bubble Chart",
+		"title": "Sample of Bar Chart with Reference Lines",
+		"subTitle": "Sample of Bar Chart with Reference Lines",
 		"applicationVersion": {
 			"version": "1.0.0"
 		},
@@ -15,7 +15,7 @@
 			"keywords": [
 				"Analytical",
 				"Card",
-				"Bubble",
+				"Bar",
 				"Sample"
 			]
 		}
@@ -26,36 +26,46 @@
 	"sap.card": {
 		"type": "Analytical",
 		"header": {
-			"title": "API calls in the platform"
+			"title": "Authentication By ProxyType"
 		},
 		"content": {
 			"data": {
-				"json": {},
-				"path": "/"
+				"json": {
+					"list": []
+				},
+				"path": "/list"
 			},
-			"chartType": "bubble",
+			"chartType": "bar",
 			"chartProperties": {
 				"title": {
 					"visible": false
 				},
-				"legendGroup": {
-					"layout": {
-						"position": "right",
-						"alignment": "topLeft"
+				"legend": {
+					"visible": false
+				},
+				"plotArea": {
+					"dataLabel":{
+						"visible": true,
+						"showTotal": true
 					}
+				
 				}
 			},
 			"minHeight": "20rem",
 			"dimensions": [
 				{
-					"name": "Sub-accounts",
-					"value": "{subAccount}"
+					"name": "Authentication",
+					"value": "{Authentication}"
 				}
 			],
 			"measures": [
 				{
-					"name": "API calls",
-					"value": "{usage}"
+					"name": "Internet",
+					"value": "{Internet}"
+				},
+				{
+					"name": "OnPremise",
+					"value": "{OnPremise}"
 				}
 			],
 			"feeds": [
@@ -63,34 +73,18 @@
 					"uid": "valueAxis",
 					"type": "Measure",
 					"values": [
-						"API calls"
+						"Internet",
+                        "OnPremise"
 					]
 				},
 				{
-					"uid": "valueAxis2",
-					"type": "Measure",
-					"values": [
-						"API calls"
-					]
-				},
-				{
-					"uid": "bubbleWidth",
-					"type": "Measure",
-					"values": [
-						"API calls"
-					]
-				},
-				{
-					"uid": "color",
+					"uid": "categoryAxis",
 					"type": "Dimension",
 					"values": [
-						"Sub-accounts"
+						"Authentication"
 					]
 				}
-			],
-			"popover": {
-				"active": true
-			}
+			]
 		}
 	}
 }

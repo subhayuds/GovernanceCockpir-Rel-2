@@ -27,7 +27,12 @@
 		"type": "Analytical",
 		"header": {
 			"type": "Numeric",
-			"title": "Active users based on last logon dates"
+			"title": "Active users based on last logon dates",
+			"subTitle": "The number of users grouped by their last logon date.",
+			"unitOfMeasurement": "User count",
+			"mainIndicator": {},
+			"details": "Users, Counts",
+			"sideIndicators": []
 		},
 		"content": {
 			"data": {
@@ -44,6 +49,8 @@
 					} 
 				},
 				"title": {
+					"text": "User's account activation status distribution",
+					"alignment": "center",
 					"visible": false
 				},
 				"plotArea": {

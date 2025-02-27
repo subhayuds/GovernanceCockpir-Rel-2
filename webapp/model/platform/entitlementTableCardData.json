@@ -31,25 +31,23 @@
 			}
 		},
         "content": {
-            "maxItems": 10,
+            "maxItems": 7,
             "minItems": 5,
             "row": {
                 "columns": [
                     {
                         "title": "Service",
                         "value": "{displayName}",
+                        "additionalText": "{category}",
                         "identifier": true,
-                        "width": "50%"
-                    },
-                    {
-                        "title": "Category",
-                        "value": "{category}",
-                        "width": "30%"
+                        "visible": true,
+                        "width": "70%"
                     },
                     {
                         "title": "Model",
                         "value": "{plan}",
-                        "width": "20%"
+                        "visible": true,
+                        "width": "30%"
                     }
                 ]
             }

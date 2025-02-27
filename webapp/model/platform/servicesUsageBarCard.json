@@ -1,0 +1,93 @@
+{
+	"_version": "1.14.0",
+	"sap.app": {
+		"id": "card.explorer.analytical.barWithReferenceLines.card",
+		"type": "card",
+		"title": "Sample of Bar Chart with Reference Lines",
+		"subTitle": "Sample of Bar Chart with Reference Lines",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"shortTitle": "A short title for this Card",
+		"info": "Additional information about this Card",
+		"description": "A long description for this Card",
+		"tags": {
+			"keywords": [
+				"Analytical",
+				"Card",
+				"Bar",
+				"Sample"
+			]
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5"
+	},
+	"sap.card": {
+		"type": "Analytical",
+		"header": {
+			"title": "Sub-account service usage statistics",
+			"subTitle": "The top 5 services used in the last 30 days",
+			"unitOfMeasurement": "Service Units",
+			"mainIndicator": {},
+			"details": "Servcies, Usages, Amounts",
+			"sideIndicators": []
+		},
+		"content": {
+			"data": {
+				"json": {},
+				"path": "/"
+			},
+			"chartType": "bar",
+			"chartProperties": {
+				"legendGroup": {
+					"position": "bottom",
+					"alignment": "topLeft"
+				},
+				"title": {
+					"text": "Top services with highest usages",
+					"alignment": "center",
+					"visible": false
+				},
+				"legend": {
+					"visible": true
+				},
+				"plotArea": {
+					"dataLabel": {
+						"visible": true,
+						"showTotal": true
+					}
+				}
+			},
+			"minHeight": "20rem",
+			"dimensions": [
+				{
+					"name": "Unit name",
+					"value": "{usageMetricName}"
+				}
+			],
+			"measures": [
+				{
+					"name": "Consumption",
+					"value": "{usageAmount}"
+				}
+			],
+			"feeds": [
+				{
+					"type": "Dimension",
+					"uid": "categoryAxis",
+					"values": [
+						"Unit name"
+					]
+				},
+				{
+					"type": "Measure",
+					"uid": "valueAxis",
+					"values": [
+						"Consumption"
+					]
+				}
+			]
+		}
+	}
+}

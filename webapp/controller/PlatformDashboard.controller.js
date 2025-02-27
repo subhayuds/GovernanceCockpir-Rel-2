@@ -19,6 +19,7 @@ sap.ui.define([
             this.loadEntitlement();
             this.loadResourceMonthlyUsage();
             this.loadUsers();
+            this.loadDestinatinDetails();
         },
 
         /**
@@ -127,11 +128,12 @@ sap.ui.define([
             var monthlyResourceUsageModel = new JSONModel(data);
             that.getOwnerComponent().setModel(monthlyResourceUsageModel, "monthlyResourceUsageModel");
 
-            var serviceCountCard = that.getView().byId("resourceMonthlyCount");
-            var serviceUsageCard = that.getView().byId("resourceMonthlyUsage");
+            // var serviceCountCard = that.getView().byId("resourceMonthlyCount");
+            var lastMonthServiceUsageCard = that.getView().byId("lastMonthResourceUsage");
+            var subaccountServiceCountBarCard = that.getView().byId("subaccountServicesCount");
 
-            that._serviceCountCardData = JSON.parse(that.getOwnerComponent().getModel("subaccountServiceCountColumnChartAnalyticCardModel").getJSON());
-            that._serviceUsageCardData = JSON.parse(that.getOwnerComponent().getModel("subaccountServiceUsageColumnChartAnalyticCardModel").getJSON());
+            that._subaccountServicesCountBarCardData = JSON.parse(that.getOwnerComponent().getModel("subaccountServicesCountCardDataModel").getJSON());
+            that._lastMonthServiceUsageCardData = JSON.parse(that.getOwnerComponent().getModel("subAccountUsageCardDataModel").getJSON());
             var monthlyUsageData = data.content;
 
             var neoServiceslist = [];
@@ -153,7 +155,6 @@ sap.ui.define([
                         subaccountServiceCountList.push({
                             "subaccountName": monthlyUsageData[i].subaccountName,
                             "serviceCount": 1,
-                            "usage": 0
                         });
                     }
                 }
@@ -165,23 +166,28 @@ sap.ui.define([
                 } else {
                     usageTypes.push(monthlyUsageData[i].measureId);
                     usageList.push({
+                        "usageMetricName": monthlyUsageData[i].metricName,
                         "usageUnit": monthlyUsageData[i].unitPlural,
                         "usageAmount": 0
                     });
                 }
             }
 
-            var servicesCountData = {
-                "d": subaccountServiceCountList
-            };
-            that._serviceCountCardData["sap.card"].content.data.json = servicesCountData;
-            serviceCountCard.setManifest(that._serviceCountCardData);
+            //Sort the array
+            subaccountServiceCountList.sort((a, b) => (a.serviceCount > b.serviceCount ? 1 : -1));
+            subaccountServiceCountList.reverse();
+            usageList.sort((a, b) => (a.usageAmount > b.usageAmount ? 1 : -1));
+            usageList.reverse();
 
-            var servicesUsagetData = {
-                "d": usageList
-            };
-            that._serviceUsageCardData["sap.card"].content.data.json = servicesUsagetData;
-            serviceUsageCard.setManifest(that._serviceUsageCardData);
+            //Reduce the array to top 10
+            subaccountServiceCountList.splice(5);
+            usageList.splice(5);
+
+            that._subaccountServicesCountBarCardData["sap.card"].content.data.json = subaccountServiceCountList;
+            subaccountServiceCountBarCard.setManifest(that._subaccountServicesCountBarCardData);
+
+            that._lastMonthServiceUsageCardData["sap.card"].content.data.json = usageList;
+            lastMonthServiceUsageCard.setManifest(that._lastMonthServiceUsageCardData);
         },
 
         /**
@@ -208,10 +214,16 @@ sap.ui.define([
             var userStatusCardModel = that.getOwnerComponent().getModel("userStatusDonutCardDataModel");
             that._userStatusModel = JSON.parse(userStatusCardModel.getJSON());
 
+            var cardUserType = that.getView().byId("userTypes");
+            var userTypeCardModel = that.getOwnerComponent().getModel("userTypeColumnCardDataModel");
+            that._userTypeModel = JSON.parse(userTypeCardModel.getJSON());
+
             var users = data.Resources;
             var totalUsers = data.totalResults;
             var arrData = [];
             var ninetyDays = 0, sixtyDays = 0, thirtyDays = 0, fifteenDays = 0, sevenDays = 0, recent = 0, activeUsers = 0, inactiveUsers = 0;
+
+            var userTypes = [], arrUserTypesDetails = [];
 
             if (totalUsers > 0) {
                 for (let i = 0; i < users.length; i++) {
@@ -236,6 +248,18 @@ sap.ui.define([
                         sevenDays++;
                     } else {
                         recent++;
+                    }
+                    
+                    //User types
+                    let index = userTypes.indexOf(users[i].userType);
+                    if (index >= 0) {
+                        arrUserTypesDetails[index].userCount++;
+                    } else {
+                        userTypes.push(users[i].userType);
+                        arrUserTypesDetails.push({
+                            "userType": users[i].userType,
+                            "userCount": 0
+                        });
                     }
                 }
 
@@ -291,6 +315,51 @@ sap.ui.define([
             }
             cardUserLogon.setManifest(that._userLogonModel);
             cardUserStatus.setManifest(that._userStatusModel);
+            
+            that._userTypeModel["sap.card"].content.data.json = arrUserTypesDetails;
+            cardUserType.setManifest(that._userTypeModel);
+        },
+
+        loadDestinatinDetails: function() {
+            var that = this;
+            var prefix = sap.ui.require.toUrl(this.getOwnerComponent().getManifestEntry('/sap.app/id').replaceAll('.', '/')) + "/";
+            var sUrl = prefix + "destination-configuration/v1/subaccountDestinations";
+
+            ajaxCall.makeAjaxReadCall(sUrl, that.getView().getController().getDestinationSuccessCallBack, that.getView().getController().errorCallBack, that);
+        },
+
+        getDestinationSuccessCallBack: function (data, that) {
+            var aggregatedCounts = {};
+            var proxyTypes = new Set();
+            var authnProxyTypeCard = that.getView().byId("cardDestinationAuthProxy");
+            var authenProxyTypeModel = that.getOwnerComponent().getModel("destinationBarCardDataModel");
+            that._destinationBarChartData = JSON.parse(authenProxyTypeModel.getJSON());
+
+            data.forEach(function (item) {
+                var auth = item.Authentication;
+                var proxy = item.ProxyType;
+                proxyTypes.add(proxy);
+                if (!aggregatedCounts[auth]) {
+                    aggregatedCounts[auth] = {};
+                }
+                aggregatedCounts[auth][proxy] = (aggregatedCounts[auth][proxy] || 0) + 1;
+            });
+
+            var chartData = [];
+            for (var auth in aggregatedCounts) {
+                var entry = { Authentication: auth };
+
+                proxyTypes.forEach(function (proxy) {
+                    entry[proxy] = aggregatedCounts[auth][proxy] || 0;
+                });
+
+                chartData.push(entry);
+            }
+
+            that._destinationBarChartData["sap.card"].content.data.json.list = chartData;
+            authnProxyTypeCard.setManifest(that._destinationBarChartData);
+
+            console.log("Chart Data:", chartData);
         }
     });
 });
