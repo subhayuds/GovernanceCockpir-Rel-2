@@ -21,6 +21,12 @@
       "authenticationType": "none"
     },
     {
+      "source": "^/api/v1/(.*)$",
+      "destination": "BTP_CPI_Dest",
+      "csrfProtection": false,
+      "authenticationType": "none"
+    },
+    {
       "source": "^/reports/v1/(.*)$",
       "destination": "BTP_Platform_Report_Services_Dest",
       "csrfProtection": false,

@@ -1,0 +1,69 @@
+{
+    "_version": "1.1.0",
+    "sap.app": {
+        "id": "card.explorer.table.card",
+        "type": "card",
+        "applicationVersion": {
+            "version": "1.0.0"
+        },
+        "shortTitle": "A short title for this Card",
+        "info": "Additional information about this Card",
+        "description": "A long description for this Card",
+        "tags": {
+            "keywords": [
+                "Table",
+                "Card"
+            ]
+        }
+    },
+    "sap.card": {
+        "type": "Table",
+        "data": {
+            "json": []
+        },
+        "header": {
+            "title": "Monthly usage",
+            "subTitle": "Monthly usage Report"
+        },
+        "footer": {
+            "paginator": {
+                "pageSize": 7
+            },
+            "actionsStrip": [
+                {
+                    "text": "Details",
+                    "actions": [
+                        {
+                            "type": "Custom",
+                            "parameters": {
+                                "action": "MonthlyUsageAction"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        "content": {
+            "maxItems": 7,
+            "minItems": 5,
+            "row": {
+                "columns": [
+                    {
+                        "title": "Subaccount Name",
+                        "value": "{subaccountName}",
+                        "additionalText": "{region}",
+                        "identifier": true,
+                        "visible": true,
+                        "width": "70%"
+                    },
+                    {
+                        "title": "Usage",
+                        "value": "{currentMonthTotalUsage}",
+                        "visible": true,
+                        "width": "30%"
+                    }
+                ]
+            }
+        }
+    }
+}

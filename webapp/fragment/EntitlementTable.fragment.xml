@@ -1,0 +1,43 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Dialog id="EntitlementDialog" title="Entitlement Details" contentWidth="80%" contentHeight="auto" stretch="true" resizable="true" draggable="true">
+        <content>
+            <Table id="entitlementTable" inset="false" alternateRowColors="true" sticky="ColumnHeaders" mode="SingleSelectMaster" items="{ path: 'entitlementModel>/entitlements'}" >
+                <headerToolbar>
+                    <Toolbar id="_IDGenToolbar2">
+                        <Title id="_IDGenTitle2" text="The total number of items ({= ${entitlementModel>/entitlements}.length || '0'})"/>
+                        <ToolbarSpacer id="_IDGenToolbarSpacer4" ></ToolbarSpacer>
+                        <Button id="_IDGenButton5" icon="sap-icon://excel-attachment" text="Export" press="onExportEntitlement"></Button>
+                    </Toolbar>
+                </headerToolbar>
+                <columns>
+                    <Column id="_IDGenColumn13">
+                        <Text id="_IDGenText26" text="Name"/>
+                    </Column>
+                    <Column id="_IDGenColumn14">
+                        <Text id="_IDGenText27" text="Category"/>
+                    </Column>
+                    <Column id="_IDGenColumn15">
+                        <Text id="_IDGenText28" text="Plan"/>
+                    </Column>
+                    <Column id="_IDGenColumn16">
+                        <Text id="_IDGenText29" text="Quota"/>
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem id="_IDGenColumnListItem3">
+                        <cells>
+                            <Text id="_IDGenText30"  text="{entitlementModel>displayName}" wrapping="false"/>
+                            <Text id="_IDGenText31"  text="{entitlementModel>category}"/>
+                            <Text id="_IDGenText32"  text="{entitlementModel>plan}"/>
+                            <Text id="_IDGenText33"  text="{entitlementModel>quota}"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+        <endButton>
+            <Button id="_IDGenButton3" text="Close" press="closeEntitlementDialog"/>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>
+ 

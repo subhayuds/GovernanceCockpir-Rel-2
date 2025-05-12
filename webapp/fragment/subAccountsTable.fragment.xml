@@ -1,0 +1,43 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Dialog id="SubAccountDialog" title="Subaccount Details" contentWidth="80%" contentHeight="auto" stretch="true" resizable="true" draggable="true">
+        <content>
+            <Table id="subAccountTable" inset="false" alternateRowColors="true" sticky="ColumnHeaders" mode="SingleSelectMaster" items="{path: 'subaccountsModel>/subaccounts'}"> 
+                <headerToolbar>
+                    <Toolbar id="_IDGenToolbar1">
+                        <Title id="_IDGenTitle1" text="The total number of Subaccounts ({= ${subaccountsModel>/subaccounts}.length || '0'})"/>
+                        <ToolbarSpacer id="_IDGenToolbarSpacer" ></ToolbarSpacer>
+                        <Button id="_IDGenButton4" text="Export" icon="sap-icon://excel-attachment" press="onExportSubAccounts"></Button>
+                    </Toolbar>
+                </headerToolbar>
+                <columns>
+                    <Column id="_IDGenColumn8">
+                        <Text id="_IDGenText18" text="Display Name"/>
+                    </Column>
+                    <Column id="_IDGenColumn10">
+                        <Text id="_IDGenText19" text="Region"/>
+                    </Column>
+                    <Column id="_IDGenColumn11">
+                        <Text id="_IDGenText20" text="Created By"/>
+                    </Column>
+                    <Column id="_IDGenColumn12">
+                        <Text id="_IDGenText21" text="Created Date"/>
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem id="_IDGenColumnListItem2">
+                        <cells>
+                            <Text id="_IDGenText22"  text="{subaccountsModel>displayName}" wrapping="false"/>
+                            <Text id="_IDGenText23"  text="{subaccountsModel>region}" />
+                            <Text id="_IDGenText24"  text="{subaccountsModel>createdBy}"/>
+                            <Text id="_IDGenText25"  text="{subaccountsModel>createdDate}"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+        <endButton>
+            <Button id="_IDGenButton2" text="Close" press="closeSubAccountDialog"/>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>
+ 

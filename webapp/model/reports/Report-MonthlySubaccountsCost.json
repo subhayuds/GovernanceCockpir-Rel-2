@@ -22,30 +22,43 @@
             "json": []
         },
         "header": {
-            "title": "Entitlements in use",
-            "subTitle": "List of Entitlements"
+            "title": "Monthly Subaccounts Cost",
+            "subTitle": "monthly cost reporting data for all subaccounts"
         },
         "footer": {
-			"paginator": {				
-				"pageSize": 7
-			}
-		},
+            "paginator": {
+                "pageSize": 7
+            },
+            "actionsStrip": [
+                {
+                    "text": "Details",
+                    "actions": [
+                        {
+                            "type": "Custom",
+                            "parameters": {
+                                "action": "SubaccountsCostAction"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
         "content": {
             "maxItems": 7,
             "minItems": 5,
             "row": {
                 "columns": [
                     {
-                        "title": "Service",
-                        "value": "{displayName}",
-                        "additionalText": "{category}",
+                        "title": "Subaccount Name",
+                        "value": "{subaccountName}",
+                        "additionalText": "{region}",
                         "identifier": true,
                         "visible": true,
                         "width": "70%"
                     },
                     {
-                        "title": "Model",
-                        "value": "{plan}",
+                        "title": "Cost",
+                        "value": "{currentMonthTotalCost}",
                         "visible": true,
                         "width": "30%"
                     }

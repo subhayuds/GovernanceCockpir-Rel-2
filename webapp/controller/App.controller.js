@@ -29,6 +29,9 @@ sap.ui.define([
         case "PLATFORM":
           this._oRouter.navTo("RoutePlatformDashboard");
           break;
+        case "COMMERCIALS":
+          this._oRouter.navTo("RouteCommercialDashboard");
+          break;
         case "INTEGRATION":
           this._oRouter.navTo("RouteIntegrationDashboard");
           break;
@@ -38,9 +41,9 @@ sap.ui.define([
         case "DATA":
           this._oRouter.navTo("RouteDataAnalyticsDashboard");
           break;
-        // case "REPORTS":
-        //   this._oRouter.navTo("Reports");
-        //   break;
+        case "REPORTS":
+          this._oRouter.navTo("RouteReports");
+          break;
         case "UTILITIES":
           this._oRouter.navTo("RouteUtilityApps");
           break;

@@ -5,7 +5,7 @@
     "type": "application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
-      "version": "2.0.3"
+      "version": "2.0.7"
     },
     "title": "{{appTitle}}",
     "description": "{{appDescription}}",
@@ -30,14 +30,6 @@
       }
     },
     "dataSources": {
-      "subAccountsTableCardData": {
-        "uri": "model/platform/subAccountsTableCard.json",
-        "type": "JSON"
-      },
-      "entitlementTableCardData": {
-        "uri": "model/platform/entitlementTableCardData.json",
-        "type": "JSON"
-      },
       "subAccountUsageCardData": {
         "uri": "model/platform/servicesUsageBarCard.json",
         "type": "JSON"
@@ -63,6 +55,20 @@
         "type": "JSON"
       },
 
+      "subAccountsCostData": {
+        "uri": "model/commercial/data/MonthlySubaccountCost-FEB.json",
+        "type": "JSON"
+      },
+      "serviceCostCardData":{
+        "uri": "model/commercial/ServiceCostCollumnCard.json",
+        "type": "JSON"
+      },
+      "monthlySubaccountsCostCardData":{
+        "uri": "model/commercial/SubAccountsCostColumnCard.json",
+        "type": "JSON"
+      },
+ 
+
       "gbHourUsageBubbleCardData": {
         "uri": "model/data/gbHourUsageBubbleCard.json",
         "type": "JSON"
@@ -82,6 +88,23 @@
       },
       "integrationContentStatusDonutCardData": {
         "uri": "model/integration/ContentStatus.json",
+        "type": "JSON"
+      },
+
+      "MonthlySubaccountsCostCardData":{
+        "uri": "model/reports/Report-MonthlySubaccountsCost.json",
+        "type": "JSON"
+      },
+      "MonthlyUsageCardData":{
+        "uri": "model/reports/Report-MonthlyUsage.json",
+        "type": "JSON"
+      },
+      "subAccountsTableCardData": {
+        "uri": "model/reports/subAccountsTableCard.json",
+        "type": "JSON"
+      },
+      "entitlementTableCardData": {
+        "uri": "model/reports/entitlementTableCardData.json",
         "type": "JSON"
       }
     }
@@ -122,18 +145,6 @@
           "bundleName": "com.hcl.btp.governance.cockpit.i18n.i18n"
         }
       },
-      "subAccountsTableCardModel": {
-        "type": "sap.ui.model.json.JSONModel",
-        "dataSource": "subAccountsTableCardData",
-        "preload": true,
-        "settings": {}
-      },
-      "entitlementTableCardModel": {
-        "type": "sap.ui.model.json.JSONModel",
-        "dataSource": "entitlementTableCardData",
-        "preload": true,
-        "settings": {}
-      },
       "subAccountUsageCardDataModel": {
         "type": "sap.ui.model.json.JSONModel",
         "dataSource": "subAccountUsageCardData",
@@ -171,6 +182,25 @@
         "settings": {}
       },
 
+      "subAccountsCostDataModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "subAccountsCostData",
+        "preload": true,
+        "settings": {}
+      },
+      "serviceCostCardModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "serviceCostCardData",
+        "preload": true,
+        "settings": {}
+      },
+      "monthlySubaccountsCostCardModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "monthlySubaccountsCostCardData",
+        "preload": true,
+        "settings": {}
+      },
+
       "gbHourUsageBubbleCardDataModel": {
         "type": "sap.ui.model.json.JSONModel",
         "dataSource": "gbHourUsageBubbleCardData",
@@ -199,6 +229,31 @@
       "integrationContentStatusDonutCardDataModel": {
         "type": "sap.ui.model.json.JSONModel",
         "dataSource": "integrationContentStatusDonutCardData",
+        "preload": true,
+        "settings": {}
+      },
+
+      "MonthlySubaccountsCostCardModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "MonthlySubaccountsCostCardData",
+        "preload": true,
+        "settings": {}
+      },
+      "MonthlyUsageCardDataCardModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "MonthlyUsageCardData",
+        "preload": true,
+        "settings": {}
+      },
+      "subAccountsTableCardModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "subAccountsTableCardData",
+        "preload": true,
+        "settings": {}
+      },
+      "entitlementTableCardModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "entitlementTableCardData",
         "preload": true,
         "settings": {}
       }
@@ -244,9 +299,16 @@
         },
         {
           "name": "RouteDataAnalyticsDashboard",
-          "pattern": "dataAnalytics",
+          "pattern": "DataAnalytics",
           "target": [
             "TargetDataAnalyticsDashboard"
+          ]
+        },
+        {
+          "name": "RouteCommercialDashboard",
+          "pattern": "Commercial",
+          "target": [
+            "TargetCommercialDashboard"
           ]
         },
         {
@@ -254,6 +316,19 @@
           "pattern": "Integration",
           "target": [
             "TargetIntegrationDashboard"
+          ]
+        },{
+          "name": "RouteIntegrationDashboard",
+          "pattern": "Integration",
+          "target": [
+            "TargetIntegrationDashboard"
+          ]
+        },
+        {
+          "name": "RouteReports",
+          "pattern": "Reports",
+          "target": [
+            "TargetReports"
           ]
         },
         {
@@ -273,9 +348,17 @@
             "id": "DataAnalyticsDashboard",
             "name": "DataAnalyticsDashboard"
           },
+          "TargetCommercialDashboard": {
+            "id": "CommercialDashboard",
+            "name": "CommercialDashboard"
+          },
           "TargetIntegrationDashboard": {
             "id": "IntegrationDashboard",
             "name": "IntegrationDashboard"
+          },
+          "TargetReports": {
+            "id": "Reports",
+            "name": "Reports"
           },
           "TargetUtilityApps": {
             "id": "UtilityApps",

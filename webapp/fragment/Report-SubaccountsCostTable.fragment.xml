@@ -1,0 +1,45 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:table="sap.ui.table"
+    xmlns:core="sap.ui.core">
+    <Dialog id="_IDGenDialog3" title="Report- Monthly subaccounts cost" contentWidth="80%" contentHeight="auto" stretch="true" resizable="true" draggable="true">
+        <Toolbar id="_IDGenToolbar5">
+            <ToolbarSpacer id="_IDGenToolbarSpacer3"></ToolbarSpacer>
+        </Toolbar>
+        <table:TreeTable id="_IDGenTreeTable" selectionMode="None" enableSelectAll="true" rows="{path:'monthlySubaccountCostModel>/subaccountCost',parameters:{arrayNames:['services']}}">
+            <table:Column id="_IDGenColumn22">
+                <Label id="_IDGenLabel" text="subaccount/ service"></Label>
+                <table:template>
+                    <Text id="_IDGenText42" text="{= ${monthlySubaccountCostModel>subaccountName} ? ${monthlySubaccountCostModel>subaccountName} : ${monthlySubaccountCostModel>serviceName}}"></Text>
+                </table:template>
+            </table:Column>
+
+            <table:Column id="_IDGenColumn23">
+                <Label id="_IDGenLabel1" text="Current Month Cost"></Label>
+                <table:template>
+                    <Text id="_IDGenText43" text="{= ${monthlySubaccountCostModel>subaccountName} ? ${monthlySubaccountCostModel>currentMonthTotalCost} : ${monthlySubaccountCostModel>currentMonthCost}}"></Text>
+                </table:template>
+            </table:Column>
+
+            <table:Column id="_IDGenColumn24">
+                <Label id="_IDGenLabel2" text="Previous Month Cost"></Label>
+                <table:template>
+                    <Text id="_IDGenText44" text="{= ${monthlySubaccountCostModel>subaccountName} ? ${monthlySubaccountCostModel>previousMonthTotalCost} : ${monthlySubaccountCostModel>previousMonthCost}}"></Text>
+                </table:template>
+            </table:Column>
+
+            <table:Column id="_IDGenColumn25">
+                <Label id="_IDGenLabel3" text="Deviation" />
+                <table:template>
+                    <HBox id="_IDGenHBox">
+                        <Text id="_IDGenText45" text="{= (${monthlySubaccountCostModel>currentMonthTotalCost} - ${monthlySubaccountCostModel>previousMonthTotalCost}).toFixed(2)}" visible="{= !!${monthlySubaccountCostModel>subaccountName}}" />
+                        <core:Icon id="_IDGenIcon" src="{parts: [{path: 'monthlySubaccountCostModel>currentMonthTotalCost'}, {path: 'monthlySubaccountCostModel>previousMonthTotalCost'}], formatter: '.formatIconSrc'}" color="{parts: [{path: 'monthlySubaccountCostModel>currentMonthTotalCost'}, {path: 'monthlySubaccountCostModel>previousMonthTotalCost'}], formatter: '.formatIconColor'}" visible="{= !!${monthlySubaccountCostModel>subaccountName}}" />
+                    </HBox>
+                </table:template>
+            </table:Column>
+        </table:TreeTable>
+        <endButton>
+            <Button id="_IDGenButton10" text="Close" press="closeSubaccountCostDialog"/>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>
+ 

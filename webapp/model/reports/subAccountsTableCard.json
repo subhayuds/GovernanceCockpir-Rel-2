@@ -17,11 +17,11 @@
         }
     },
     "sap.ui": {
-		"technology": "UI5",
-		"icons": {
-			"icon": "sap-icon://table-view"
-		}
-	},
+        "technology": "UI5",
+        "icons": {
+            "icon": "sap-icon://table-view"
+        }
+    },
     "sap.card": {
         "type": "Table",
         "data": {
@@ -32,10 +32,23 @@
             "subTitle": "Sub-accounts in use"
         },
         "footer": {
-			"paginator": {
-				"pageSize": 7
-			}
-		},
+            "paginator": {
+                "pageSize": 7
+            },
+            "actionsStrip": [
+                {
+                    "text": "Details",
+                    "actions": [
+                        {
+                            "type": "Custom",
+                            "parameters": {
+                                "action": "subAccountAction"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
         "content": {
             "maxItems": 7,
             "minItems": 3,

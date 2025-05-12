@@ -1,9 +1,7 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
-    "sap/ui/model/json/JSONModel",
-    "com/hcl/btp/governance/cockpit/util/ajaxCall",
-    "sap/m/MessageToast"
-], (Controller, JSONModel, ajaxCall, MessageToast) => {
+    "sap/ushell/Container"
+], (Controller, Container) => {
     "use strict";
 
     return Controller.extend("com.hcl.btp.governance.cockpit.controller.UtilityApps", {
@@ -22,6 +20,61 @@ sap.ui.define([
          */
         _onRouteMatched: function (oEvent) {
 
-        }
+        },
+
+        onPressAdjustMonitor: async function (oEvent) {
+            const Navigation = await Container.getServiceAsync("Navigation");
+            const sHref = await Navigation.getHref({
+                target: {
+                    semanticObject: "accounts",
+                    action: "manage"
+                }
+            });
+            sap.m.URLHelper.redirect(sHref, true);
+        },
+
+        onPressAccounts: async function (oEvent) {
+            const Navigation = await Container.getServiceAsync("Navigation");
+            const sHref = await Navigation.getHref({
+                target: {
+                    semanticObject: "accounts",
+                    action: "manage"
+                }
+            });
+            sap.m.URLHelper.redirect(sHref, true);
+        },
+
+        pressAccessAuth: async function (oEvent) {
+            const Navigation = await Container.getServiceAsync("Navigation");
+            const sHref = await Navigation.getHref({
+                target: {
+                    semanticObject: "accounts",
+                    action: "manage"
+                }
+            });
+            sap.m.URLHelper.redirect(sHref, true);
+        },
+
+        onPressAuditLogs: async function (oEvent) {
+            const Navigation = await Container.getServiceAsync("Navigation");
+            const sHref = await Navigation.getHref({
+                target: {
+                    semanticObject: "AuditLog_Object",
+                    action: "AuditLog_Action"
+                }
+            });
+            sap.m.URLHelper.redirect(sHref, true);
+        },
+
+        onPressIntegrationLogs: async function (oEvent) {
+            const Navigation = await Container.getServiceAsync("Navigation");
+            const sHref = await Navigation.getHref({
+                target: {
+                    semanticObject: "integrationLog",
+                    action: "view"
+                }
+            });
+            sap.m.URLHelper.redirect(sHref, true);
+        },
     });
 });

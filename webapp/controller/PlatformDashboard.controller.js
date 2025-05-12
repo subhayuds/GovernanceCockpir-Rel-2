@@ -15,8 +15,6 @@ sap.ui.define([
                 this._oRouter = oRouter;
             }
 
-            this.loadSubAccount();
-            this.loadEntitlement();
             this.loadResourceMonthlyUsage();
             this.loadUsers();
             this.loadDestinatinDetails();
@@ -28,88 +26,6 @@ sap.ui.define([
          */
         _onRouteMatched: function (oEvent) {
 
-        },
-
-        /**
-         * Get All Sub Account
-         */
-        loadSubAccount: function () {
-            var that = this;
-            var prefix = sap.ui.require.toUrl(this.getOwnerComponent().getManifestEntry('/sap.app/id').replaceAll('.', '/')) + "/";
-            var sUrl = prefix + "accounts/v1/subaccounts";
-
-            ajaxCall.makeAjaxReadCall(sUrl, that.getSubAccountSuccessCallBack, that.errorCallBack, this);
-        },
-
-        getSubAccountSuccessCallBack: function (data, that) {
-            var subAccountModel = new JSONModel(data);
-            that.getOwnerComponent().setModel(subAccountModel, "subAccountModel");
-            that._subaccountCount = data.value.length;
-
-            var subAccountMap = {};
-            for (var i = 0; i < data.value.length; i++) {
-                subAccountMap[data.value[i].guid] = data.value[i];
-            }
-            that.getOwnerComponent()._subAccountMap = subAccountMap;
-
-            var cardSubAccountTable = that.getView().byId("cardTableSubAccounts");
-            var tableCardModel = that.getOwnerComponent().getModel("subAccountsTableCardModel");
-            that._tableCardModel = JSON.parse(tableCardModel.getJSON());
-            var arrData = [];
-
-            for (var i = 0; i < data.value.length; i++) {
-                var obJson = {
-                    "displayName": data.value[i].displayName,
-                    "region": data.value[i].region?.toUpperCase(),
-                    "createdBy": data.value[i].createdBy?.toLowerCase(),
-                    "createdDate": sap.ui.core.format.DateFormat.getDateInstance({ pattern: "MMM-yyyy" }).format(new Date(data.value[i].createdDate)),
-                }
-                arrData.push(obJson);
-            }
-
-            that._tableCardModel["sap.card"].data.json = arrData;
-            cardSubAccountTable.setManifest(that._tableCardModel);
-        },
-
-        errorCallBack: function (errMsg, viewObj) {
-            MessageToast.show(errMsg);
-        },
-
-        /**
-         * Get Entitlements
-         */
-        loadEntitlement: function () {
-            var that = this;
-            var prefix = sap.ui.require.toUrl(this.getOwnerComponent().getManifestEntry('/sap.app/id').replaceAll('.', '/')) + "/";
-            var sUrl = prefix + "entitlements/v1/assignments";
-
-            ajaxCall.makeAjaxReadCall(sUrl, that.getView().getController().getEntitlementSuccessCallBack,
-                that.getView().getController().errorCallBack, that);
-        },
-
-        getEntitlementSuccessCallBack: function (data, that) {
-            var entitlementModel = new JSONModel(data);
-            that.getOwnerComponent().setModel(entitlementModel, "entitlementModel");
-
-            var cardTableEntitlement = that.getView().byId("cardTableEntitlement");
-            var tableCardModel = that.getOwnerComponent().getModel("entitlementTableCardModel");
-            that._tableCardModel = JSON.parse(tableCardModel.getJSON());
-
-            var entitlements = data.entitledServices;
-            var arrData = [];
-
-            for (var i = 0; i < entitlements.length; i++) {
-                var obJson = {
-                    "displayName": entitlements[i].displayName,
-                    "category": entitlements[i].businessCategory.displayName,
-                    "plan": entitlements[i].servicePlans[0].sourceEntitlements != null ? entitlements[i].servicePlans[0].sourceEntitlements[0].commercialModel?.displayName : "Not available",
-                    "quota": entitlements[i].servicePlans[0].amount,
-                }
-                arrData.push(obJson);
-            }
-
-            that._tableCardModel["sap.card"].data.json = arrData;
-            cardTableEntitlement.setManifest(that._tableCardModel);
         },
 
         /**

@@ -1,0 +1,45 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:table="sap.ui.table"
+    xmlns:core="sap.ui.core">
+    <Dialog id="_IDGenDialog2" title="Report-Monthly Usage" contentWidth="80%" contentHeight="auto" stretch="true" resizable="true" draggable="true">
+        <Toolbar id="_IDGenToolbar6">
+            <ToolbarSpacer id="_IDGenToolbarSpacer5"></ToolbarSpacer>
+        </Toolbar>
+        <table:TreeTable id="_IDGenTreeTableUsage" selectionMode="None" enableSelectAll="true" rows="{path:'monthlyUsageModel>/subaccountUsage',parameters:{arrayNames:['services']}}">
+            <table:Column id="_IDGenColumnUsage1">
+                <Label id="_IDGenLabelUsage1" text="Subaccount / Service"></Label>
+                <table:template>
+                    <Text id="_IDGenTextUsage1" text="{= ${monthlyUsageModel>subaccountName} ? ${monthlyUsageModel>subaccountName} : ${monthlyUsageModel>serviceName}}"></Text>
+                </table:template>
+            </table:Column>
+
+            <table:Column id="_IDGenColumnUsage2">
+                <Label id="_IDGenLabelUsage2" text="Current Month Usage (GBP)"></Label>
+                <table:template>
+                    <Text id="_IDGenTextUsage2" text="{= ${monthlyUsageModel>subaccountName} ? ${monthlyUsageModel>currentMonthTotalUsage} : ${monthlyUsageModel>currentMonthUsage}}"></Text>
+                </table:template>
+            </table:Column>
+
+            <table:Column id="_IDGenColumnUsage3">
+                <Label id="_IDGenLabelUsage3" text="Previous Month Usage (GBP)" ></Label>
+                <table:template>
+                    <Text id="_IDGenTextUsage3" text="{= ${monthlyUsageModel>subaccountName} ? ${monthlyUsageModel>previousMonthTotalUsage} : ${monthlyUsageModel>previousMonthUsage}}"></Text>
+                </table:template>
+            </table:Column>
+
+            <table:Column id="_IDGenColumnUsage4">
+                <Label id="_IDGenLabelUsage4" text="Deviation"></Label>
+                <table:template>
+                    <HBox id="_IDGenHBoxUsage">
+                        <Text id="_IDGenTextUsage4" text="{= (${monthlyUsageModel>currentMonthTotalUsage} - ${monthlyUsageModel>previousMonthTotalUsage}).toFixed(2)}" visible="{= !!${monthlyUsageModel>subaccountName}}" />
+                        <core:Icon id="_IDGenIconUsage" src="{parts: [{path: 'monthlyUsageModel>currentMonthTotalUsage'}, {path: 'monthlyUsageModel>previousMonthTotalUsage'}], formatter: '.formatUsageIconSrc'}" color="{parts: [{path: 'monthlyUsageModel>currentMonthTotalUsage'}, {path: 'monthlyUsageModel>previousMonthTotalUsage'}], formatter: '.formatUsageIconColor'}" visible="{= !!${monthlyUsageModel>subaccountName}}" />
+                    </HBox>
+                </table:template>
+            </table:Column>
+        </table:TreeTable>
+        <endButton>
+            <Button id="_IDGenButton7" text="Close" press="closeMonthlyUsageDialog"/>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>
+ 
