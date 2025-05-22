@@ -56,11 +56,13 @@ sap.ui.define([
         },
 
         loadIntegrationDetails: function() {
-            var that = this;
-            var prefix = sap.ui.require.toUrl(this.getOwnerComponent().getManifestEntry('/sap.app/id').replaceAll('.', '/')) + "/";
-            var sUrl = prefix + "api/v1/IntegrationRuntimeArtifacts?$format=json";
+            // var that = this;
+            // var prefix = sap.ui.require.toUrl(this.getOwnerComponent().getManifestEntry('/sap.app/id').replaceAll('.', '/')) + "/";
+            // var sUrl = prefix + "api/v1/IntegrationRuntimeArtifacts?$format=json";
 
-            ajaxCall.makeAjaxReadCall(sUrl, that.getIntegrationDetailsSuccessCallBack, that.errorCallBack, that);
+            // ajaxCall.makeAjaxReadCall(sUrl, that.getIntegrationDetailsSuccessCallBack, that.errorCallBack, that);
+            var integrationRintimeArtifactsData = this.getOwnerComponent().getModel("integrationRintimeArtifactsDataModel").getData();
+            this.getIntegrationDetailsSuccessCallBack(integrationRintimeArtifactsData, this);
         },
 
         getIntegrationDetailsSuccessCallBack: function(data, that) {

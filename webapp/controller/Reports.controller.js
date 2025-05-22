@@ -43,29 +43,31 @@ sap.ui.define([
         readReportsMonthlySubaccountsCost: function () {
             var that = this;
 
-            var currentDate = new Date();
-            var currentMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-            var previousMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1);
-            var twoMonthsAgoDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 2, 1);
+            // var currentDate = new Date();
+            // var currentMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+            // var previousMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1);
+            // var twoMonthsAgoDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 2, 1);
 
-            var currentMonth = currentMonthDate.getFullYear().toString() + (currentMonthDate.getMonth() + 1).toString().padStart(2, '0');
-            var previousMonth = previousMonthDate.getFullYear().toString() + (previousMonthDate.getMonth() + 1).toString().padStart(2, '0');
-            var twoMonthsAgo = twoMonthsAgoDate.getFullYear().toString() + (twoMonthsAgoDate.getMonth() + 1).toString().padStart(2, '0');
+            // var currentMonth = currentMonthDate.getFullYear().toString() + (currentMonthDate.getMonth() + 1).toString().padStart(2, '0');
+            // var previousMonth = previousMonthDate.getFullYear().toString() + (previousMonthDate.getMonth() + 1).toString().padStart(2, '0');
+            // var twoMonthsAgo = twoMonthsAgoDate.getFullYear().toString() + (twoMonthsAgoDate.getMonth() + 1).toString().padStart(2, '0');
 
-            var prefix = sap.ui.require.toUrl(this.getOwnerComponent().getManifestEntry('/sap.app/id').replaceAll('.', '/')) + "/";
-            var currentMonthUrl = prefix + "reports/v1/monthlySubaccountsCost?fromDate=" + previousMonth + "&toDate=" + currentMonth;
-            var previousMonthUrl = prefix + "reports/v1/monthlySubaccountsCost?fromDate=" + twoMonthsAgo + "&toDate=" + previousMonth;
+            // var prefix = sap.ui.require.toUrl(this.getOwnerComponent().getManifestEntry('/sap.app/id').replaceAll('.', '/')) + "/";
+            // var currentMonthUrl = prefix + "reports/v1/monthlySubaccountsCost?fromDate=" + previousMonth + "&toDate=" + currentMonth;
+            // var previousMonthUrl = prefix + "reports/v1/monthlySubaccountsCost?fromDate=" + twoMonthsAgo + "&toDate=" + previousMonth;
 
             var monthlySubaccountsCostCard = that.getView().byId("cardMonthlySubaccountCost");
             var monthlySubaccountsCostModel = that.getOwnerComponent().getModel("MonthlySubaccountsCostCardModel");
             that._monthlySubaccountsCostModel = JSON.parse(monthlySubaccountsCostModel.getJSON());
 
-            $.when(
-                $.ajax({ url: currentMonthUrl, type: 'GET', contentType: "application/json" }),
-                $.ajax({ url: previousMonthUrl, type: 'GET', contentType: "application/json" })
-            ).then(function (currentMonthData, previousMonthData) {
-                var currentMonthSubaccounts = currentMonthData[0].content;
-                var previousMonthSubaccounts = previousMonthData[0].content;
+            // $.when(
+            //     $.ajax({ url: currentMonthUrl, type: 'GET', contentType: "application/json" }),
+            //     $.ajax({ url: previousMonthUrl, type: 'GET', contentType: "application/json" })
+            // ).then(function (currentMonthData, previousMonthData) {
+                // var currentMonthSubaccounts = currentMonthData[0].content;
+                // var previousMonthSubaccounts = previousMonthData[0].content;
+                var currentMonthSubaccounts = this.getOwnerComponent().getModel("MothlySubaccountCostCurrentDataModel").getData().content;
+                var previousMonthSubaccounts = this.getOwnerComponent().getModel("MothlySubaccountCostPreviousDataModel").getData().content;
                 var subaccountCosts = [];
 
                 currentMonthSubaccounts.forEach(function (subaccount) {
@@ -161,9 +163,9 @@ sap.ui.define([
                 that._monthlySubaccountsCostModel["sap.card"].data.json = subaccountCosts;
                 monthlySubaccountsCostCard.setManifest(that._monthlySubaccountsCostModel);
 
-            }, function (e) {
-                console.log("error: " + e);
-            });
+            // }, function (e) {
+            //     console.log("error: " + e);
+            // });
         },
 
         readReportsMonthlyUsage: function () {

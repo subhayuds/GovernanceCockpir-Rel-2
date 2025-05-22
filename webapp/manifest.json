@@ -5,7 +5,7 @@
     "type": "application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
-      "version": "2.0.7"
+      "version": "2.0.9"
     },
     "title": "{{appTitle}}",
     "description": "{{appDescription}}",
@@ -90,6 +90,10 @@
         "uri": "model/integration/ContentStatus.json",
         "type": "JSON"
       },
+      "integrationRintimeArtifactsData": {
+        "uri": "model/integration/IntegrationRuntimeArtifacts.json",
+        "type": "JSON"
+      },
 
       "MonthlySubaccountsCostCardData":{
         "uri": "model/reports/Report-MonthlySubaccountsCost.json",
@@ -105,6 +109,14 @@
       },
       "entitlementTableCardData": {
         "uri": "model/reports/entitlementTableCardData.json",
+        "type": "JSON"
+      },
+      "MothlySubaccountCostCurrentData": {
+        "uri": "model/reports/MonthlySubaccountsCost-Current.json",
+        "type": "JSON"
+      },
+      "MothlySubaccountCostPreviousData": {
+        "uri": "model/reports/MonthlySubaccountsCost-Previous.json",
         "type": "JSON"
       }
     }
@@ -232,6 +244,12 @@
         "preload": true,
         "settings": {}
       },
+      "integrationRintimeArtifactsDataModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "integrationRintimeArtifactsData",
+        "preload": true,
+        "settings": {}
+      },
 
       "MonthlySubaccountsCostCardModel": {
         "type": "sap.ui.model.json.JSONModel",
@@ -254,6 +272,18 @@
       "entitlementTableCardModel": {
         "type": "sap.ui.model.json.JSONModel",
         "dataSource": "entitlementTableCardData",
+        "preload": true,
+        "settings": {}
+      },
+      "MothlySubaccountCostCurrentDataModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "MothlySubaccountCostCurrentData",
+        "preload": true,
+        "settings": {}
+      },
+      "MothlySubaccountCostPreviousDataModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "MothlySubaccountCostPreviousData",
         "preload": true,
         "settings": {}
       }
